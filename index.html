@@ -42,16 +42,28 @@ function speak(text){
 
 <tr>
 <td>SV</td>
-<td>I have.</td>
-<td class="jp">私は持っている</td>
-<td><button onclick="speak('I have')">音声📢</button></td>
+<td>I have.
+You have.
+They have.</td>
+<td class="jp">私は持っている
+あなたは持っている
+彼らは持っている</td>
+<td><button onclick="speak('I have')">音声📢</button>
+<button onclick="speak('You have')">音声📢</button>
+<button onclick="speak('They have')">音声📢</button></td>
 </tr>
 
 <tr>
 <td>SVO</td>
-<td>I have a car.</td>
-<td class="jp">私は車を持っている</td>
-<td><button onclick="speak('I have a car')">音声📢</button></td>
+<td>I have a car.
+She has a dog.
+We have many books.</td>
+<td class="jp">私は車を持っている
+彼女は犬を持っている
+私たちは多くの本を持っている</td>
+<td><button onclick="speak('I have a car')">音声📢</button>
+<button onclick="speak('She has a dog')">音声📢</button>
+<button onclick="speak('We have many books')">音声📢</button></td>
 </tr>
 
 <tr>
@@ -63,9 +75,15 @@ function speak(text){
 
 <tr>
 <td>SVOC</td>
-<td>I have him clean the room.</td>
-<td class="jp">私は彼に部屋を掃除させる</td>
-<td><button onclick="speak('I have him clean the room')">音声📢</button></td>
+<td>I have him clean the room.
+She has the children do their homework.
+They have the employees work overtime.</td>
+<td class="jp">私は彼に部屋を掃除させる
+彼女は子供たちに宿題をさせる
+彼らは従業員に残業させる</td>
+<td><button onclick="speak('I have him clean the room')">音声📢</button>
+<button onclick="speak('She has the children do their homework')">音声📢</button>
+<button onclick="speak('They have the employees work overtime')">音声📢</button></td>
 </tr>
 
 </table>
@@ -108,16 +126,28 @@ function speak(text){
 
 <tr>
 <td>SV</td>
-<td>I have.</td>
-<td class="jp">私は持っている</td>
-<td><button onclick="speak('I have')">音声📢</button></td>
+<td>I have.
+You have.
+They have.</td>
+<td class="jp">私は持っている
+あなたは持っている
+彼らは持っている</td>
+<td><button onclick="speak('I have')">音声📢</button>
+<button onclick="speak('You have')">音声📢</button>
+<button onclick="speak('They have')">音声📢</button></td>
 </tr>
 
 <tr>
 <td>SVO</td>
-<td>I have a car.</td>
-<td class="jp">私は車を持っている</td>
-<td><button onclick="speak('I have a car')">音声📢</button></td>
+<td>I have a car.
+She has a dog.
+We have many books.</td>
+<td class="jp">私は車を持っている
+彼女は犬を持っている
+私たちは多くの本を持っている</td>
+<td><button onclick="speak('I have a car')">音声📢</button>
+<button onclick="speak('She has a dog')">音声📢</button>
+<button onclick="speak('We have many books')">音声📢</button></td>
 </tr>
 
 <tr>
@@ -129,34 +159,31 @@ function speak(text){
 
 <tr>
 <td>SVOC</td>
-<td>I have him clean the room.</td>
-<td class="jp">私は彼に部屋を掃除させる</td>
-<td><button onclick="speak('I have him clean the room')">音声📢</button></td>
+<td>I have him clean the room.
+She has the children do their homework.
+They have the employees work overtime.</td>
+<td class="jp">私は彼に部屋を掃除させる
+彼女は子供たちに宿題をさせる
+彼らは従業員に残業させる</td>
+<td><button onclick="speak('I have him clean the room')">音声📢</button>
+<button onclick="speak('She has the children do their homework')">音声📢</button>
+<button onclick="speak('They have the employees work overtime')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>応用</td>
+<td>I have been working on this project for weeks.
+The company has a policy of providing health benefits to all employees.
+Have you ever had the opportunity to travel abroad?</td>
+<td class="jp">私はこのプロジェクトに数週間取り組んできた
+この会社は全従業員に健康保険を提供する方針だ
+海外旅行の機会に恵まれたことがありますか</td>
+<td><button onclick="speak('I have been working on this project for weeks')">音声📢</button>
+<button onclick="speak('The company has a policy of providing health benefits to all employees')">音声📢</button>
+<button onclick="speak('Have you ever had the opportunity to travel abroad')">音声📢</button></td>
 </tr>
 
 </table>
-
-<h2>7. 応用問題</h2>
-<p>次の状況に合わせて適切な "have" の用法を選択しましょう。</p>
-<ul>
-<li>友人に自分の持ち物を見せる: "I have a new camera."</li>
-<li>家族に子供の成長を報告する: "The kids have grown so much this year."</li>
-<li>上司に仕事の進捗を説明する: "I have completed the report you requested."</li>
-</ul>
-
-<h2>8. 学習記録</h2>
-<p>練習問題の正解率: <span id="score">0%</span></p>
-<button onclick="updateScore(10)">問題1正解</button>
-<button onclick="updateScore(-5)">問題1不正解</button>
-
-<script>
-let score = 0;
-
-function updateScore(points) {
-  score += points;
-  document.getElementById("score").textContent = `${score}%`;
-}
-</script>
 
 </body>
 </html>
