@@ -81,7 +81,8 @@ function speak(text){
 
 <h2>4. 例外</h2>
 <ul>
-<li>※個別に後で調整</li>
+<li>"have got" の用法</li>
+<li>不規則変化形: "have" → "has"</li>
 </ul>
 
 <h2>5. 発音（全時制）</h2>
@@ -134,6 +135,28 @@ function speak(text){
 </tr>
 
 </table>
+
+<h2>7. 応用問題</h2>
+<p>次の状況に合わせて適切な "have" の用法を選択しましょう。</p>
+<ul>
+<li>友人に自分の持ち物を見せる: "I have a new camera."</li>
+<li>家族に子供の成長を報告する: "The kids have grown so much this year."</li>
+<li>上司に仕事の進捗を説明する: "I have completed the report you requested."</li>
+</ul>
+
+<h2>8. 学習記録</h2>
+<p>練習問題の正解率: <span id="score">0%</span></p>
+<button onclick="updateScore(10)">問題1正解</button>
+<button onclick="updateScore(-5)">問題1不正解</button>
+
+<script>
+let score = 0;
+
+function updateScore(points) {
+  score += points;
+  document.getElementById("score").textContent = `${score}%`;
+}
+</script>
 
 </body>
 </html>
