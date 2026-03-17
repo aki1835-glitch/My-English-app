@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>have 学習テンプレート</title>
+<style>
+body { font-family: Arial, sans-serif; line-height: 1.8; padding: 20px; }
+table { border-collapse: collapse; width: 100%; margin-bottom: 20px; }
+th, td { border: 1px solid #ccc; padding: 8px; text-align: left; }
+th { background-color: #f0f0f0; }
+button { cursor: pointer; }
+</style>
+
+<script>
+function speak(text) {
+  const uttr = new SpeechSynthesisUtterance(text);
+  uttr.lang = 'en-US';
+  speechSynthesis.cancel();
+  speechSynthesis.speak(uttr);
+}
+</script>
+</head>
+
+<body>
+
+<h1>動詞 have 学習テンプレート</h1>
+
+<h2>1. 動詞情報</h2>
+<p><strong>have</strong></p>
+<p>持つ / 所有する / 経験する / 状態を持つ</p>
+<button onclick="speak('have')">音声📢</button>
+
+<h2>2. 法則</h2>
+<table>
+<tr><th>語形</th><th>音声</th></tr>
+<tr><td>have</td><td><button onclick="speak('have')">音声📢</button></td></tr>
+<tr><td>has</td><td><button onclick="speak('has')">音声📢</button></td></tr>
+<tr><td>had</td><td><button onclick="speak('had')">音声📢</button></td></tr>
+<tr><td>having</td><td><button onclick="speak('having')">音声📢</button></td></tr>
+<tr><td>had（過去分詞）</td><td><button onclick="speak('had')">音声📢</button></td></tr>
+</table>
+
+<h2>3. 発音</h2>
+<button onclick="speak('have')">音声📢</button>
+
+<h2>4. アウトプット（全文型）</h2>
+<table>
+<tr><th>文型</th><th>例文</th><th>日本語</th><th>音声</th></tr>
+
+<tr>
+<td>SVO</td>
+<td>I have a car.</td>
+<td>私は車を持っている</td>
+<td><button onclick="speak('I have a car')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVOO</td>
+<td>I have him a chance.</td>
+<td>私は彼にチャンスを与える</td>
+<td><button onclick="speak('I have him a chance')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVOC</td>
+<td>I have my hair cut.</td>
+<td>私は髪を切ってもらう</td>
+<td><button onclick="speak('I have my hair cut')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SV</td>
+<td>I have.</td>
+<td>私は持っている（省略表現）</td>
+<td><button onclick="speak('I have')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVC</td>
+<td>I have a problem.</td>
+<td>私は問題を抱えている</td>
+<td><button onclick="speak('I have a problem')">音声📢</button></td>
+</tr>
+
+</table>
+
+</body>
+</html>
