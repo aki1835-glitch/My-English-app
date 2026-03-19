@@ -108,6 +108,7 @@ loadVerb(document.getElementById("verbSelect").value);
 
 function loadVerb(v){
 const d=verbs[v];
+if(!d) return;
 
 // タイトル
 document.getElementById("title").innerText="動詞 "+v+" 学習テンプレート";
@@ -118,11 +119,11 @@ document.getElementById("meaning").innerText=d.meaning;
 document.getElementById("voiceWord").onclick=()=>speak(v);
 
 // 法則
-document.getElementById("f1").innerText=d.forms[0];
-document.getElementById("f2").innerText=d.forms[1];
-document.getElementById("f3").innerText=d.forms[2];
-document.getElementById("f4").innerText=d.forms[3];
-document.getElementById("f5").innerText=d.forms[4];
+setText("f1",d.forms[0]);
+setText("f2",d.forms[1]);
+setText("f3",d.forms[2]);
+setText("f4",d.forms[3]);
+setText("f5",d.forms[4]);
 
 // 文型
 setRow("SV",d.SV);
@@ -133,16 +134,22 @@ setRow("SVOC",d.SVOC);
 // 例外
 const ex = d.exceptions || [];
 document.getElementById("exceptions").innerHTML =
-ex.map(e=>"<li>"+e+"</li>").join("");
+ex.length ? ex.map(e=>"<li>"+e+"</li>").join("") : "<li>—</li>";
 
 // アウトプット
-setOutput("outSVO_en","outSVO_jp",d.output?.SVO);
-setOutput("outSVOC_en","outSVOC_jp",d.output?.SVOC);
-setOutput("outAPP_en","outAPP_jp",d.output?.APP);
+setOutput("outSVO_en","outSVO_jp",d.output && d.output.SVO);
+setOutput("outSVOC_en","outSVOC_jp",d.output && d.output.SVOC);
+setOutput("outAPP_en","outAPP_jp",d.output && d.output.APP);
+}
+
+function setText(id,val){
+const el=document.getElementById(id);
+if(el) el.innerText=val || "";
 }
 
 function setRow(id,data){
 const row=document.getElementById(id);
+if(!row) return;
 
 if(!data){
 row.children[1].innerText="×（この文型は取らない）";
@@ -156,17 +163,19 @@ row.children[3].innerHTML="<button onclick=\"speak('"+data[0]+"')\">音声📢</
 }
 
 function setOutput(id_en,id_jp,data){
-if(!data){
-document.getElementById(id_en).innerHTML="—";
-document.getElementById(id_jp).innerHTML="—";
+const en=document.getElementById(id_en);
+const jp=document.getElementById(id_jp);
+
+if(!en || !jp) return;
+
+if(!data || data.length < 6){
+en.innerHTML="—";
+jp.innerHTML="—";
 return;
 }
 
-document.getElementById(id_en).innerHTML =
-data[0]+"<br>"+data[1]+"<br>"+data[2];
-
-document.getElementById(id_jp).innerHTML =
-data[3]+"<br>"+data[4]+"<br>"+data[5];
+en.innerHTML=data.slice(0,3).join("<br>");
+jp.innerHTML=data.slice(3,6).join("<br>");
 }
 </script>
 
@@ -200,8 +209,8 @@ data[3]+"<br>"+data[4]+"<br>"+data[5];
 
 <tr id="SVO">
 <td>SVO</td>
-<td>I have a car.</td>
-<td class="jp">私は車を持っている</td>
+<td></td>
+<td class="jp"></td>
 <td></td>
 </tr>
 
@@ -214,8 +223,8 @@ data[3]+"<br>"+data[4]+"<br>"+data[5];
 
 <tr id="SVOC">
 <td>SVOC</td>
-<td>I have him clean the room.</td>
-<td class="jp">私は彼に部屋を掃除させる</td>
+<td></td>
+<td class="jp"></td>
 <td></td>
 </tr>
 
