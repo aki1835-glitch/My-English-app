@@ -24,36 +24,49 @@ function speak(text){
 
 const verbs = {
 
-have:{
-title:"動詞 have 学習テンプレート",
-word:"have",
-meaning:"持つ / 経験する",
+have:{meaning:"持つ",forms:["have","has","had","had","having"],SV:null,SVO:["I have a car.","私は車を持っている"],SVOO:null,SVOC:["I have him clean the room.","私は彼に掃除させる"]},
+make:{meaning:"作る",forms:["make","makes","made","made","making"],SV:null,SVO:["I make a cake.","私はケーキを作る"],SVOO:["I make you a cake.","あなたにケーキを作る"],SVOC:["I make him happy.","彼を幸せにする"]},
+take:{meaning:"取る",forms:["take","takes","took","taken","taking"],SV:null,SVO:["I take a break.","休憩を取る"],SVOO:null,SVOC:null},
+get:{meaning:"得る",forms:["get","gets","got","gotten","getting"],SV:null,SVO:["I get a ticket.","チケットを得る"],SVOO:null,SVOC:["I get him ready.","彼を準備させる"]},
+do:{meaning:"する",forms:["do","does","did","done","doing"],SV:null,SVO:["I do homework.","宿題をする"],SVOO:null,SVOC:null},
+go:{meaning:"行く",forms:["go","goes","went","gone","going"],SV:["I go.","私は行く"],SVO:null,SVOO:null,SVOC:null},
+come:{meaning:"来る",forms:["come","comes","came","come","coming"],SV:["I come.","私は来る"],SVO:null,SVOO:null,SVOC:null},
+see:{meaning:"見る",forms:["see","sees","saw","seen","seeing"],SV:null,SVO:["I see a dog.","犬を見る"],SVOO:null,SVOC:["I see him running.","彼が走るのを見る"]},
+know:{meaning:"知る",forms:["know","knows","knew","known","knowing"],SV:null,SVO:["I know him.","彼を知っている"],SVOO:null,SVOC:null},
+think:{meaning:"考える",forms:["think","thinks","thought","thought","thinking"],SV:null,SVO:["I think that he is right.","彼が正しいと思う"],SVOO:null,SVOC:["I think him smart.","彼を賢いと思う"]},
 
-SV:"×（この文型は基本的に使わない）",
-SVO:["I have a car.","私は車を持っている"],
-SVOO:null,
-SVOC:["I have him clean the room.","私は彼に部屋を掃除させる"],
+give:{meaning:"与える",forms:["give","gives","gave","given","giving"],SV:null,SVO:["I give a gift.","贈り物をする"],SVOO:["I give you a gift.","あなたに贈り物をする"],SVOC:null},
+use:{meaning:"使う",forms:["use","uses","used","used","using"],SV:null,SVO:["I use a computer.","コンピュータを使う"],SVOO:null,SVOC:null},
+find:{meaning:"見つける",forms:["find","finds","found","found","finding"],SV:null,SVO:["I find a key.","鍵を見つける"],SVOO:null,SVOC:["I find this easy.","これを簡単だと思う"]},
+tell:{meaning:"伝える",forms:["tell","tells","told","told","telling"],SV:null,SVO:["I tell a story.","話をする"],SVOO:["I tell you a story.","あなたに話す"],SVOC:null},
+ask:{meaning:"尋ねる",forms:["ask","asks","asked","asked","asking"],SV:null,SVO:["I ask a question.","質問する"],SVOO:["I ask you a question.","あなたに質問する"],SVOC:null},
+work:{meaning:"働く",forms:["work","works","worked","worked","working"],SV:["I work.","働く"],SVO:null,SVOO:null,SVOC:null},
+seem:{meaning:"思われる",forms:["seem","seems","seemed","seemed","seeming"],SV:["He seems tired.","疲れているようだ"],SVO:null,SVOO:null,SVOC:null},
+feel:{meaning:"感じる",forms:["feel","feels","felt","felt","feeling"],SV:null,SVO:["I feel pain.","痛みを感じる"],SVOO:null,SVOC:["I feel happy.","幸せだと感じる"]},
+try:{meaning:"試す",forms:["try","tries","tried","tried","trying"],SV:null,SVO:["I try it.","それを試す"],SVOO:null,SVOC:null},
+leave:{meaning:"去る",forms:["leave","leaves","left","left","leaving"],SV:null,SVO:["I leave the room.","部屋を出る"],SVOO:null,SVOC:["I leave the door open.","ドアを開けたままにする"]},
 
-forms:["have","has","had","had","having"],
+call:{meaning:"呼ぶ",forms:["call","calls","called","called","calling"],SV:null,SVO:["I call him.","彼を呼ぶ"],SVOO:null,SVOC:["I call him John.","彼をジョンと呼ぶ"]},
+keep:{meaning:"保つ",forms:["keep","keeps","kept","kept","keeping"],SV:null,SVO:["I keep a diary.","日記をつける"],SVOO:null,SVOC:["I keep the door closed.","ドアを閉めておく"]},
+let:{meaning:"させる",forms:["let","lets","let","let","letting"],SV:null,SVO:["I let him go.","彼を行かせる"],SVOO:null,SVOC:["I let him go.","彼に行かせる"]},
+put:{meaning:"置く",forms:["put","puts","put","put","putting"],SV:null,SVO:["I put the book.","本を置く"],SVOO:null,SVOC:["I put it on the table.","テーブルに置く"]},
+mean:{meaning:"意味する",forms:["mean","means","meant","meant","meaning"],SV:null,SVO:["This means a lot.","重要だ"],SVOO:null,SVOC:null},
+become:{meaning:"なる",forms:["become","becomes","became","become","becoming"],SV:null,SVO:null,SVOO:null,SVOC:["I become a teacher.","教師になる"]},
+begin:{meaning:"始める",forms:["begin","begins","began","begun","beginning"],SV:["It begins.","始まる"],SVO:["I begin work.","仕事を始める"],SVOO:null,SVOC:null},
+show:{meaning:"見せる",forms:["show","shows","showed","shown","showing"],SV:null,SVO:["I show a picture.","写真を見せる"],SVOO:["I show you a picture.","あなたに見せる"],SVOC:null},
+hear:{meaning:"聞く",forms:["hear","hears","heard","heard","hearing"],SV:null,SVO:["I hear a sound.","音を聞く"],SVOO:null,SVOC:["I hear him singing.","彼が歌うのを聞く"]},
+play:{meaning:"遊ぶ",forms:["play","plays","played","played","playing"],SV:null,SVO:["I play tennis.","テニスをする"],SVOO:null,SVOC:null},
 
-output_SVO:[
-["I have a car.","私は車を持っている"],
-["She has a dog.","彼女は犬を持っている"],
-["We have many books.","私たちは多くの本を持っている"]
-],
-
-output_SVOC:[
-["I have him clean the room.","私は彼に部屋を掃除させる"],
-["She has the children do their homework.","彼女は子供たちに宿題をさせる"],
-["They have the employees work overtime.","彼らは従業員に残業させる"]
-],
-
-applied:[
-["I have finished my work.","私は仕事を終えた"],
-["I have been studying English for years.","私は何年も英語を勉強している"],
-["Have you ever had sushi?","寿司を食べたことがありますか"]
-]
-}
+run:{meaning:"走る",forms:["run","runs","ran","run","running"],SV:["I run.","走る"],SVO:null,SVOO:null,SVOC:null},
+move:{meaning:"動く",forms:["move","moves","moved","moved","moving"],SV:["I move.","動く"],SVO:["I move a chair.","椅子を動かす"],SVOO:null,SVOC:["I move it closer.","近づける"]},
+live:{meaning:"住む",forms:["live","lives","lived","lived","living"],SV:["I live here.","ここに住む"],SVO:null,SVOO:null,SVOC:null},
+believe:{meaning:"信じる",forms:["believe","believes","believed","believed","believing"],SV:null,SVO:["I believe him.","彼を信じる"],SVOO:null,SVOC:null},
+hold:{meaning:"持つ",forms:["hold","holds","held","held","holding"],SV:null,SVO:["I hold a bag.","袋を持つ"],SVOO:null,SVOC:null},
+bring:{meaning:"持ってくる",forms:["bring","brings","brought","brought","bringing"],SV:null,SVO:["I bring food.","食べ物を持ってくる"],SVOO:["I bring you food.","あなたに持ってくる"],SVOC:null},
+happen:{meaning:"起こる",forms:["happen","happens","happened","happened","happening"],SV:["It happens.","起こる"],SVO:null,SVOO:null,SVOC:null},
+write:{meaning:"書く",forms:["write","writes","wrote","written","writing"],SV:null,SVO:["I write a letter.","手紙を書く"],SVOO:null,SVOC:null},
+provide:{meaning:"提供する",forms:["provide","provides","provided","provided","providing"],SV:null,SVO:["I provide help.","助けを提供する"],SVOO:null,SVOC:null},
+sit:{meaning:"座る",forms:["sit","sits","sat","sat","sitting"],SV:["I sit.","座る"],SVO:null,SVOO:null,SVOC:null}
 
 };
 
