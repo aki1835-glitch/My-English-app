@@ -10,4 +10,119 @@ h1{color:#2c3e50}
 table{border-collapse:collapse;width:100%;margin-bottom:25px}
 th,td{border:1px solid #ccc;padding:10px}
 th{background:#f2f2f2}
-button
+button{padding:6px 10px;cursor:pointer}
+.jp{color:#555}
+select{font-size:18px;margin-bottom:20px;padding:5px}
+</style>
+
+<script>
+function speak(text){
+  const msg = new SpeechSynthesisUtterance(text);
+  msg.lang = 'en-US';
+  speechSynthesis.speak(msg);
+}
+
+const verbs = {
+have:{
+meaning:"持つ",
+forms:["have","has","had","had","having"],
+SV:["I have.","私は持っている"],
+SVO:["I have a car.","私は車を持っている"],
+SVOO:null,
+SVOC:["I have him clean the room.","私は彼に掃除させる"]
+},
+
+go:{
+meaning:"行く",
+forms:["go","goes","went","gone","going"],
+SV:["I go.","私は行く"],
+SVO:null,
+SVOO:null,
+SVOC:null
+}
+};
+
+window.onload = function(){
+const select = document.getElementById("verbSelect");
+Object.keys(verbs).forEach(v=>{
+  const op = document.createElement("option");
+  op.value=v; op.textContent=v;
+  select.appendChild(op);
+});
+loadVerb("have");
+};
+
+function changeVerb(){
+const v=document.getElementById("verbSelect").value;
+loadVerb(v);
+}
+
+function loadVerb(v){
+const d=verbs[v];
+
+document.getElementById("title").innerText="動詞 "+v+" 学習テンプレート";
+document.getElementById("meaning").innerHTML="<strong>"+v+"</strong>："+d.meaning;
+document.getElementById("voice").onclick=function(){speak(v);};
+
+// 文型
+setRow("SV",d.SV);
+setRow("SVO",d.SVO);
+setRow("SVOO",d.SVOO);
+setRow("SVOC",d.SVOC);
+
+// 法則
+document.getElementById("forms").innerHTML=
+"<li>原形："+d.forms[0]+"</li>"+
+"<li>三人称単数現在："+d.forms[1]+"</li>"+
+"<li>過去形："+d.forms[2]+"</li>"+
+"<li>過去分詞："+d.forms[3]+"</li>"+
+"<li>現在分詞："+d.forms[4]+"</li>";
+}
+
+function setRow(type,data){
+const row=document.getElementById(type);
+if(!data){
+row.children[1].innerText="×（この文型は取らない）";
+row.children[2].innerText="—";
+row.children[3].innerText="—";
+}else{
+row.children[1].innerText=data[0];
+row.children[2].innerText=data[1];
+row.children[3].innerHTML="<button onclick=\"speak('"+data[0]+"')\">音声📢</button>";
+}
+}
+</script>
+
+</head>
+<body>
+
+<select id="verbSelect" onchange="changeVerb()"></select>
+
+<h1 id="title"></h1>
+
+<h2>1. 動詞情報</h2>
+<p id="meaning"></p>
+<p>音声 <button id="voice">音声📢</button></p>
+
+<h2>2. 文型（5文型）</h2>
+
+<table>
+<tr>
+<th>文型</th>
+<th>例文</th>
+<th>日本語訳</th>
+<th>音声</th>
+</tr>
+
+<tr id="SV"><td>SV</td><td></td><td class="jp"></td><td></td></tr>
+<tr id="SVO"><td>SVO</td><td></td><td class="jp"></td><td></td></tr>
+<tr id="SVOO"><td>SVOO</td><td></td><td class="jp"></td><td></td></tr>
+<tr id="SVOC"><td>SVOC</td><td></td><td class="jp"></td><td></td></tr>
+
+</table>
+
+<h2>3. 法則</h2>
+<ul id="forms"></ul>
+
+</body>
+</html>
