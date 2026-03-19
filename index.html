@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Verb Learning Template - have</title>
+<title>Verb Learning Template</title>
+
 <style>
 body{font-family:Arial,Helvetica,sans-serif;margin:40px;line-height:1.8}
 h1{color:#2c3e50}
@@ -11,6 +12,7 @@ th,td{border:1px solid #ccc;padding:10px}
 th{background:#f2f2f2}
 button{padding:6px 10px;cursor:pointer}
 .jp{color:#555}
+select{font-size:18px;margin-bottom:20px;padding:5px}
 </style>
 
 <script>
@@ -19,16 +21,103 @@ function speak(text){
     msg.lang = 'en-US';
     speechSynthesis.speak(msg);
 }
+
+const verbs = {
+
+have:{
+meaning:"持つ / 経験する",
+forms:["have","has","had","had","having"],
+SV:null,
+SVO:["I have a car.","私は車を持っている"],
+SVOO:null,
+SVOC:["I have him clean the room.","私は彼に部屋を掃除させる"]
+},
+
+make:{
+meaning:"作る",
+forms:["make","makes","made","made","making"],
+SV:null,
+SVO:["I make a cake.","私はケーキを作る"],
+SVOO:["I make you a cake.","あなたにケーキを作る"],
+SVOC:["I make him happy.","彼を幸せにする"]
+},
+
+take:{
+meaning:"取る",
+forms:["take","takes","took","taken","taking"],
+SV:null,
+SVO:["I take a break.","休憩を取る"],
+SVOO:null,
+SVOC:null
+}
+
+};
+
+window.onload=function(){
+const sel=document.getElementById("verbSelect");
+Object.keys(verbs).forEach(v=>{
+let op=document.createElement("option");
+op.value=v;
+op.textContent=v;
+sel.appendChild(op);
+});
+loadVerb("have");
+};
+
+function changeVerb(){
+loadVerb(document.getElementById("verbSelect").value);
+}
+
+function loadVerb(v){
+const d=verbs[v];
+
+// タイトル
+document.getElementById("title").innerText="動詞 "+v+" 学習テンプレート";
+
+// 動詞情報
+document.getElementById("word").innerText=v;
+document.getElementById("meaning").innerText=d.meaning;
+document.getElementById("voiceWord").onclick=()=>speak(v);
+
+// 法則
+document.getElementById("f1").innerText=d.forms[0];
+document.getElementById("f2").innerText=d.forms[1];
+document.getElementById("f3").innerText=d.forms[2];
+document.getElementById("f4").innerText=d.forms[3];
+document.getElementById("f5").innerText=d.forms[4];
+
+// 文型
+setRow("SV",d.SV);
+setRow("SVO",d.SVO);
+setRow("SVOO",d.SVOO);
+setRow("SVOC",d.SVOC);
+}
+
+function setRow(id,data){
+const row=document.getElementById(id);
+
+if(!data){
+row.children[1].innerText="×（この文型は取らない）";
+row.children[2].innerText="—";
+row.children[3].innerText="—";
+}else{
+row.children[1].innerText=data[0];
+row.children[2].innerText=data[1];
+row.children[3].innerHTML="<button onclick=\"speak('"+data[0]+"')\">音声📢</button>";
+}
+}
 </script>
 
 </head>
 <body>
 
-<h1>動詞 have 学習テンプレート</h1>
+<select id="verbSelect" onchange="changeVerb()"></select>
+
+<h1 id="title">動詞 have 学習テンプレート</h1>
 
 <h2>1. 動詞情報</h2>
-<p><strong>have</strong>：持つ / 経験する</p>
-<p>音声 <button onclick="speak('have')">音声📢</button></p>
+<p><strong id="word">have</strong>：<span id="meaning">持つ / 経験する</span></p>
+<p>音声 <button id="voiceWord">音声📢</button></p>
 
 <h2>2. 文型（5文型）</h2>
 
@@ -40,28 +129,28 @@ function speak(text){
 <th>音声</th>
 </tr>
 
-<tr>
+<tr id="SV">
 <td>SV</td>
 <td>×（この文型は基本的に使わない）</td>
 <td class="jp">—</td>
 <td>—</td>
 </tr>
 
-<tr>
+<tr id="SVO">
 <td>SVO</td>
 <td>I have a car.</td>
 <td class="jp">私は車を持っている</td>
 <td><button onclick="speak('I have a car')">音声📢</button></td>
 </tr>
 
-<tr>
+<tr id="SVOO">
 <td>SVOO</td>
 <td>×（この文型は取らない）</td>
 <td class="jp">—</td>
 <td>—</td>
 </tr>
 
-<tr>
+<tr id="SVOC">
 <td>SVOC</td>
 <td>I have him clean the room.</td>
 <td class="jp">私は彼に部屋を掃除させる</td>
@@ -72,11 +161,11 @@ function speak(text){
 
 <h2>3. 法則</h2>
 <ul>
-<li>原形：have <button onclick="speak('have')">音声📢</button></li>
-<li>三人称単数現在：has <button onclick="speak('has')">音声📢</button></li>
-<li>過去形：had <button onclick="speak('had')">音声📢</button></li>
-<li>過去分詞：had <button onclick="speak('had')">音声📢</button></li>
-<li>現在分詞：having <button onclick="speak('having')">音声📢</button></li>
+<li>原形：<span id="f1">have</span> <button onclick="speak(document.getElementById('f1').innerText)">音声📢</button></li>
+<li>三人称単数現在：<span id="f2">has</span> <button onclick="speak(document.getElementById('f2').innerText)">音声📢</button></li>
+<li>過去形：<span id="f3">had</span> <button onclick="speak(document.getElementById('f3').innerText)">音声📢</button></li>
+<li>過去分詞：<span id="f4">had</span> <button onclick="speak(document.getElementById('f4').innerText)">音声📢</button></li>
+<li>現在分詞：<span id="f5">having</span> <button onclick="speak(document.getElementById('f5').innerText)">音声📢</button></li>
 </ul>
 
 <h2>4. 例外</h2>
