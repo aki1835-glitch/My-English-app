@@ -27,28 +27,66 @@ const verbs = {
 have:{
 meaning:"持つ / 経験する",
 forms:["have","has","had","had","having"],
+
 SV:null,
 SVO:["I have a car.","私は車を持っている"],
 SVOO:null,
-SVOC:["I have him clean the room.","私は彼に部屋を掃除させる"]
+SVOC:["I have him clean the room.","私は彼に部屋を掃除させる"],
+
+exceptions:[
+'"have got" = 持っている（口語）',
+"完了形で重要（have + 過去分詞）"
+],
+
+output:{
+SVO:[
+"I have a car.",
+"She has a dog.",
+"We have many books.",
+"私は車を持っている",
+"彼女は犬を持っている",
+"私たちは多くの本を持っている"
+],
+SVOC:[
+"I have him clean the room.",
+"She has the children do their homework.",
+"They have the employees work overtime.",
+"私は彼に部屋を掃除させる",
+"彼女は子供たちに宿題をさせる",
+"彼らは従業員に残業させる"
+],
+APP:[
+"I have finished my work.",
+"I have been studying English for years.",
+"Have you ever had sushi?",
+"私は仕事を終えた",
+"私は何年も英語を勉強している",
+"寿司を食べたことがありますか"
+]
+}
 },
 
 make:{
 meaning:"作る",
 forms:["make","makes","made","made","making"],
+
 SV:null,
 SVO:["I make a cake.","私はケーキを作る"],
 SVOO:["I make you a cake.","あなたにケーキを作る"],
-SVOC:["I make him happy.","彼を幸せにする"]
-},
+SVOC:["I make him happy.","彼を幸せにする"],
 
-take:{
-meaning:"取る",
-forms:["take","takes","took","taken","taking"],
-SV:null,
-SVO:["I take a break.","休憩を取る"],
-SVOO:null,
-SVOC:null
+exceptions:[],
+
+output:{
+SVO:[
+"I make a cake.",
+"She makes dinner.",
+"We make plans.",
+"私はケーキを作る",
+"彼女は夕食を作る",
+"私たちは計画を立てる"
+]
+}
 }
 
 };
@@ -91,6 +129,16 @@ setRow("SV",d.SV);
 setRow("SVO",d.SVO);
 setRow("SVOO",d.SVOO);
 setRow("SVOC",d.SVOC);
+
+// 例外
+const ex = d.exceptions || [];
+document.getElementById("exceptions").innerHTML =
+ex.map(e=>"<li>"+e+"</li>").join("");
+
+// アウトプット
+setOutput("outSVO_en","outSVO_jp",d.output?.SVO);
+setOutput("outSVOC_en","outSVOC_jp",d.output?.SVOC);
+setOutput("outAPP_en","outAPP_jp",d.output?.APP);
 }
 
 function setRow(id,data){
@@ -105,6 +153,20 @@ row.children[1].innerText=data[0];
 row.children[2].innerText=data[1];
 row.children[3].innerHTML="<button onclick=\"speak('"+data[0]+"')\">音声📢</button>";
 }
+}
+
+function setOutput(id_en,id_jp,data){
+if(!data){
+document.getElementById(id_en).innerHTML="—";
+document.getElementById(id_jp).innerHTML="—";
+return;
+}
+
+document.getElementById(id_en).innerHTML =
+data[0]+"<br>"+data[1]+"<br>"+data[2];
+
+document.getElementById(id_jp).innerHTML =
+data[3]+"<br>"+data[4]+"<br>"+data[5];
 }
 </script>
 
@@ -140,7 +202,7 @@ row.children[3].innerHTML="<button onclick=\"speak('"+data[0]+"')\">音声📢</
 <td>SVO</td>
 <td>I have a car.</td>
 <td class="jp">私は車を持っている</td>
-<td><button onclick="speak('I have a car')">音声📢</button></td>
+<td></td>
 </tr>
 
 <tr id="SVOO">
@@ -154,25 +216,22 @@ row.children[3].innerHTML="<button onclick=\"speak('"+data[0]+"')\">音声📢</
 <td>SVOC</td>
 <td>I have him clean the room.</td>
 <td class="jp">私は彼に部屋を掃除させる</td>
-<td><button onclick="speak('I have him clean the room')">音声📢</button></td>
+<td></td>
 </tr>
 
 </table>
 
 <h2>3. 法則</h2>
 <ul>
-<li>原形：<span id="f1">have</span> <button onclick="speak(document.getElementById('f1').innerText)">音声📢</button></li>
-<li>三人称単数現在：<span id="f2">has</span> <button onclick="speak(document.getElementById('f2').innerText)">音声📢</button></li>
-<li>過去形：<span id="f3">had</span> <button onclick="speak(document.getElementById('f3').innerText)">音声📢</button></li>
-<li>過去分詞：<span id="f4">had</span> <button onclick="speak(document.getElementById('f4').innerText)">音声📢</button></li>
-<li>現在分詞：<span id="f5">having</span> <button onclick="speak(document.getElementById('f5').innerText)">音声📢</button></li>
+<li>原形：<span id="f1"></span> <button onclick="speak(document.getElementById('f1').innerText)">音声📢</button></li>
+<li>三人称単数現在：<span id="f2"></span> <button onclick="speak(document.getElementById('f2').innerText)">音声📢</button></li>
+<li>過去形：<span id="f3"></span> <button onclick="speak(document.getElementById('f3').innerText)">音声📢</button></li>
+<li>過去分詞：<span id="f4"></span> <button onclick="speak(document.getElementById('f4').innerText)">音声📢</button></li>
+<li>現在分詞：<span id="f5"></span> <button onclick="speak(document.getElementById('f5').innerText)">音声📢</button></li>
 </ul>
 
 <h2>4. 例外</h2>
-<ul>
-<li>"have got" = 持っている（口語）</li>
-<li>完了形で非常に重要（have + 過去分詞）</li>
-</ul>
+<ul id="exceptions"></ul>
 
 <h2>5. アウトプット練習（全文型）</h2>
 
@@ -186,66 +245,23 @@ row.children[3].innerHTML="<button onclick=\"speak('"+data[0]+"')\">音声📢</
 
 <tr>
 <td>SVO</td>
-<td>
-I have a car.<br>
-She has a dog.<br>
-We have many books.
-</td>
-<td class="jp">
-私は車を持っている<br>
-彼女は犬を持っている<br>
-私たちは多くの本を持っている
-</td>
-<td>
-<button onclick="speak('I have a car')">音声📢</button>
-<button onclick="speak('She has a dog')">音声📢</button>
-<button onclick="speak('We have many books')">音声📢</button>
-</td>
-</tr>
-
-<tr>
-<td>SVOO</td>
-<td>×（この文型は取らない）</td>
-<td class="jp">—</td>
-<td>—</td>
+<td id="outSVO_en"></td>
+<td class="jp" id="outSVO_jp"></td>
+<td></td>
 </tr>
 
 <tr>
 <td>SVOC</td>
-<td>
-I have him clean the room.<br>
-She has the children do their homework.<br>
-They have the employees work overtime.
-</td>
-<td class="jp">
-私は彼に部屋を掃除させる<br>
-彼女は子供たちに宿題をさせる<br>
-彼らは従業員に残業させる
-</td>
-<td>
-<button onclick="speak('I have him clean the room')">音声📢</button>
-<button onclick="speak('She has the children do their homework')">音声📢</button>
-<button onclick="speak('They have the employees work overtime')">音声📢</button>
-</td>
+<td id="outSVOC_en"></td>
+<td class="jp" id="outSVOC_jp"></td>
+<td></td>
 </tr>
 
 <tr>
 <td>応用</td>
-<td>
-I have finished my work.<br>
-I have been studying English for years.<br>
-Have you ever had sushi?
-</td>
-<td class="jp">
-私は仕事を終えた<br>
-私は何年も英語を勉強している<br>
-寿司を食べたことがありますか
-</td>
-<td>
-<button onclick="speak('I have finished my work')">音声📢</button>
-<button onclick="speak('I have been studying English for years')">音声📢</button>
-<button onclick="speak('Have you ever had sushi')">音声📢</button>
-</td>
+<td id="outAPP_en"></td>
+<td class="jp" id="outAPP_jp"></td>
+<td></td>
 </tr>
 
 </table>
