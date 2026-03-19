@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英語動詞 学習テンプレート</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root { --bg:#0f1117;--surface:#1a1d27;--surface2:#22263a;--accent:#5b8dee;--accent2:#e8a87c;--text:#e8eaf0;--muted:#7a7f99;--border:#2e3248;--good:#4caf7d;--bad:#e05f5f;--radius:10px; }
+  *{box-sizing:border-box;margin:0;padding:0;}
+  body{background:var(--bg);color:var(--text);font-family:'DM Sans','Noto Sans JP',sans-serif;font-weight:300;min-height:100vh;padding:0 0 60px;}
+  .header{background:linear-gradient(135deg,#1a1d27,#0f1117);border-bottom:1px solid var(--border);padding:28px 24px 20px;position:sticky;top:0;z-index:50;}
+  .header-inner{max-width:860px;margin:0 auto;display:flex;align-items:center;gap:20px;flex-wrap:wrap;}
+  .logo{font-family:'DM Serif Display',serif;font-size:1.35rem;color:var(--accent);letter-spacing:.02em;white-space:nowrap;}
+  .logo em{font-style:italic;color:var(--accent2);}
+  .verb-select-wrap{position:relative;}
+  .verb-select-wrap::after{content:'▾';position:absolute;right:12px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:.8rem;}
+  #verbSelect{appearance:none;background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);color:var(--text);font-family:'DM Sans',sans-serif;font-size:.95rem;font-weight:500;padding:9px 36px 9px 14px;cursor:pointer;outline:none;transition:border-color .2s;}
+  #verbSelect:focus{border-color:var(--accent);}
+  .progress-bar-wrap{background:var(--surface2);border-radius:99px;height:6px;flex:1;min-width:80px;overflow:hidden;}
+  .progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .5s ease;width:0%;}
+  .progress-label{font-size:.7rem;color:var(--muted);white-space:nowrap;}
+  .main{max-width:860px;margin:0 auto;padding:32px 20px 0;}
+  .section{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);margin-bottom:20px;overflow:hidden;animation:fadeUp .4s ease both;}
+  @keyframes fadeUp{from{opacity:0;transform:translateY(12px);}to{opacity:1;transform:translateY(0);}}
+  .section-header{display:flex;align-items:center;gap:10px;padding:14px 20px;border-bottom:1px solid var(--border);background:var(--surface2);}
+  .section-num{width:24px;height:24px;background:var(--accent);border-radius:50%;font-size:.72rem;font-weight:500;display:flex;align-items:center;justify-content:center;flex-shrink:0;color:#fff;}
+  .section-title{font-size:.82rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);}
+  .section-body{padding:20px;}
+  .verb-hero{display:flex;align-items:center;gap:16px;flex-wrap:wrap;}
+  .verb-word{font-family:'DM Serif Display',serif;font-size:3rem;color:var(--accent);line-height:1;}
+  .verb-meaning{color:var(--muted);font-size:.9rem;margin-top:4px;}
+  .speak-btn{background:var(--surface2);border:1px solid var(--border);border-radius:8px;color:var(--text);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.8rem;padding:8px 12px;transition:background .2s,transform .15s;display:flex;align-items:center;gap:6px;}
+  .speak-btn:hover{background:var(--accent);border-color:var(--accent);transform:scale(1.04);}
+  .forms-grid{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;}
+  .form-chip{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 14px;display:flex;flex-direction:column;gap:2px;cursor:pointer;transition:border-color .2s,background .2s;}
+  .form-chip:hover{border-color:var(--accent);background:#1e2235;}
+  .form-chip-label{font-size:.62rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;}
+  .form-chip-val{font-family:'DM Serif Display',serif;font-style:italic;font-size:1.1rem;color:var(--accent2);}
+  .patterns-table{width:100%;border-collapse:collapse;}
+  .patterns-table th{text-align:left;font-size:.68rem;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);padding:8px 12px;border-bottom:1px solid var(--border);}
+  .patterns-table td{padding:12px;border-bottom:1px solid var(--border);vertical-align:middle;font-size:.88rem;}
+  .patterns-table tr:last-child td{border-bottom:none;}
+  .patterns-table tr:hover td{background:var(--surface2);}
+  .badge{display:inline-block;padding:3px 9px;border-radius:6px;font-size:.72rem;font-weight:500;letter-spacing:.05em;}
+  .badge-yes{background:rgba(91,141,238,.15);color:var(--accent);border:1px solid rgba(91,141,238,.3);}
+  .badge-no{background:rgba(224,95,95,.1);color:var(--bad);border:1px solid rgba(224,95,95,.2);}
+  .jp-text{color:var(--muted);font-size:.82rem;margin-top:3px;}
+  .exception-list{list-style:none;display:flex;flex-direction:column;gap:8px;}
+  .exception-list li{background:rgba(232,168,124,.08);border-left:3px solid var(--accent2);border-radius:0 8px 8px 0;padding:9px 14px;font-size:.85rem;color:var(--accent2);}
+  .output-group{margin-bottom:24px;}
+  .output-group:last-child{margin-bottom:0;}
+  .output-group-label{font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;color:var(--accent);margin-bottom:10px;display:flex;align-items:center;gap:8px;}
+  .output-group-label::after{content:'';flex:1;height:1px;background:var(--border);}
+  .sentence-row{display:flex;align-items:flex-start;gap:12px;padding:10px 0;border-bottom:1px solid var(--border);}
+  .sentence-row:last-child{border-bottom:none;}
+  .sentence-texts{flex:1;}
+  .sentence-en{font-size:.92rem;color:var(--text);}
+  .sentence-jp{font-size:.78rem;color:var(--muted);margin-top:3px;}
+  .quiz-question{background:var(--surface2);border:1px solid var(--border);border-radius:var(--radius);padding:18px 20px;margin-bottom:14px;}
+  .quiz-q-label{font-size:.68rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:8px;}
+  .quiz-q-text{font-size:1rem;color:var(--text);line-height:1.6;}
+  .blank{display:inline-block;min-width:80px;border-bottom:2px solid var(--accent);margin:0 4px;color:transparent;user-select:none;}
+  .blank.revealed{color:var(--accent2);border-color:var(--accent2);}
+  .quiz-jp{font-size:.8rem;color:var(--muted);margin-top:6px;}
+  .quiz-options{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:14px;}
+  .quiz-opt{background:var(--surface2);border:1px solid var(--border);border-radius:8px;padding:8px 18px;font-family:'DM Sans',sans-serif;font-size:.88rem;color:var(--text);cursor:pointer;transition:background .18s,border-color .18s,transform .1s;}
+  .quiz-opt:hover:not(:disabled){border-color:var(--accent);background:#1e2235;transform:translateY(-1px);}
+  .quiz-opt:disabled{cursor:default;opacity:.7;}
+  .quiz-opt.correct{background:rgba(76,175,125,.15);border-color:var(--good);color:var(--good);}
+  .quiz-opt.wrong{background:rgba(224,95,95,.12);border-color:var(--bad);color:var(--bad);}
+  .quiz-feedback{font-size:.82rem;padding:8px 14px;border-radius:8px;margin-bottom:12px;display:none;}
+  .quiz-feedback.show{display:block;}
+  .quiz-feedback.ok{background:rgba(76,175,125,.1);color:var(--good);border:1px solid rgba(76,175,125,.2);}
+  .quiz-feedback.ng{background:rgba(224,95,95,.08);color:var(--bad);border:1px solid rgba(224,95,95,.2);}
+  .quiz-controls{display:flex;gap:10px;flex-wrap:wrap;}
+  .btn-primary{background:var(--accent);border:none;border-radius:8px;color:#fff;cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;font-weight:500;padding:9px 20px;transition:opacity .2s,transform .15s;}
+  .btn-primary:hover{opacity:.88;transform:translateY(-1px);}
+  .btn-secondary{background:transparent;border:1px solid var(--border);border-radius:8px;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;font-size:.82rem;padding:9px 20px;transition:border-color .2s,color .2s;}
+  .btn-secondary:hover{border-color:var(--accent);color:var(--accent);}
+  .score-display{display:flex;align-items:center;gap:8px;font-size:.78rem;color:var(--muted);margin-left:auto;}
+  .score-num{font-family:'DM Serif Display',serif;font-size:1.1rem;color:var(--accent2);}
+  @media(max-width:580px){.verb-word{font-size:2.2rem;}.patterns-table th:nth-child(3),.patterns-table td:nth-child(3){display:none;}.section-body{padding:14px;}}
+</style>
+</head>
+<body>
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">Verb<em>Lab</em></div>
+    <div class="verb-select-wrap"><select id="verbSelect"></select></div>
+    <div class="progress-bar-wrap"><div class="progress-bar" id="progressBar"></div></div>
+    <div class="progress-label" id="progressLabel">Quiz: 0/0</div>
+  </div>
+</header>
+<main class="main">
+  <div class="section" style="animation-delay:.05s">
+    <div class="section-header"><div class="section-num">1</div><div class="section-title">動詞情報</div></div>
+    <div class="section-body">
+      <div class="verb-hero">
+        <div><div class="verb-word" id="verbWord"></div><div class="verb-meaning" id="verbMeaning"></div></div>
+        <button class="speak-btn" id="speakWordBtn">🔊 発音を聞く</button>
+      </div>
+      <div class="forms-grid" id="formsGrid"></div>
+    </div>
+  </div>
+  <div class="section" style="animation-delay:.1s">
+    <div class="section-header"><div class="section-num">2</div><div class="section-title">5文型</div></div>
+    <div class="section-body" style="padding:0">
+      <table class="patterns-table">
+        <thead><tr><th>文型</th><th>例文</th><th>音声</th></tr></thead>
+        <tbody id="patternsBody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div class="section" style="animation-delay:.15s">
+    <div class="section-header"><div class="section-num">3</div><div class="section-title">例外・注意点</div></div>
+    <div class="section-body"><ul class="exception-list" id="exceptionList"></ul></div>
+  </div>
+  <div class="section" style="animation-delay:.2s">
+    <div class="section-header"><div class="section-num">4</div><div class="section-title">アウトプット練習</div></div>
+    <div class="section-body" id="outputBody"></div>
+  </div>
+  <div class="section" style="animation-delay:.25s">
+    <div class="section-header">
+      <div class="section-num">5</div><div class="section-title">クイズ</div>
+      <div class="score-display"><span>正解</span><span class="score-num" id="scoreNum">0</span><span>/</span><span id="scoreDen">0</span></div>
+    </div>
+    <div class="section-body">
+      <div class="quiz-question">
+        <div class="quiz-q-label">空欄に入る動詞の形を選んでください</div>
+        <div class="quiz-q-text" id="quizText"></div>
+        <div class="quiz-jp" id="quizJp"></div>
+      </div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-controls">
+        <button class="btn-primary" id="nextQuizBtn">次の問題 →</button>
+        <button class="btn-secondary" id="resetQuizBtn">リセット</button>
+      </div>
+    </div>
+  </div>
+</main>
+<script>
+const VERBS = {
+  be:      {meaning:"〜である / いる / ある",forms:{"原形":"be","三単現":"is","過去形":"was/were","過去分詞":"been","現在分詞":"being"},patterns:{SV:{en:"She is here.",jp:"彼女はここにいる。"},SVO:null,SVOO:null,SVOC:{en:"He is a doctor.",jp:"彼は医者だ。"}},exceptions:["am/is/are（現在）、was/were（過去）と不規則変化","受動態・進行形で助動詞として使われる"],output:{"SV":[{en:"She is here.",jp:"彼女はここにいる。"},{en:"They were at school.",jp:"彼らは学校にいた。"},{en:"The keys are on the table.",jp:"鍵はテーブルの上にある。"}],"SVOC":[{en:"He is a doctor.",jp:"彼は医者だ。"},{en:"The weather is beautiful today.",jp:"今日の天気は素晴らしい。"},{en:"I am happy.",jp:"私は幸せだ。"}]}},
+  have:    {meaning:"持つ / 経験する",forms:{"原形":"have","三単現":"has","過去形":"had","過去分詞":"had","現在分詞":"having"},patterns:{SV:null,SVO:{en:"I have a car.",jp:"私は車を持っている。"},SVOO:null,SVOC:{en:"I have him clean the room.",jp:"私は彼に部屋を掃除させる。"}},exceptions:['"have got" = 持っている（口語）',"完了形で重要：have + 過去分詞","使役動詞：have + O + 動詞原形"],output:{"SVO":[{en:"I have a car.",jp:"私は車を持っている。"},{en:"She has a dog.",jp:"彼女は犬を持っている。"},{en:"We have many books.",jp:"私たちは多くの本を持っている。"}],"SVOC":[{en:"I have him clean the room.",jp:"私は彼に部屋を掃除させる。"},{en:"She has the children do their homework.",jp:"彼女は子供たちに宿題をさせる。"},{en:"They have the employees work overtime.",jp:"彼らは従業員に残業させる。"}],"応用（完了形）":[{en:"I have finished my work.",jp:"私は仕事を終えた。"},{en:"I have been studying English for years.",jp:"私は何年も英語を勉強している。"},{en:"Have you ever had sushi?",jp:"寿済を食べたことがありますか？"}]}},
+  do:      {meaning:"する / 行う",forms:{"原形":"do","三単現":"does","過去形":"did","過去分詞":"done","現在分詞":"doing"},patterns:{SV:null,SVO:{en:"I do my homework.",jp:"私は宿題をする。"},SVOO:null,SVOC:null},exceptions:["助動詞として疑問文・否定文を作る","do well / do badly = うまくいく・うまくいかない"],output:{"SVO":[{en:"I do my homework.",jp:"私は宿題をする。"},{en:"She does yoga every morning.",jp:"彼女は毎朝ヨガをする。"},{en:"We did our best.",jp:"私たちは最善を尽くした。"}],"応用":[{en:"Do you speak English?",jp:"あなたは英語を話しますか？"},{en:"I don't know the answer.",jp:"私は答えを知らない。"},{en:"She did well on the test.",jp:"彼女はテストでよくできた。"}]}},
+  make:    {meaning:"作る / 〜にする",forms:{"原形":"make","三単現":"makes","過去形":"made","過去分詞":"made","現在分詞":"making"},patterns:{SV:null,SVO:{en:"I make a cake.",jp:"私はケーキを作る。"},SVOO:{en:"I make you a cake.",jp:"あなたにケーキを作る。"},SVOC:{en:"I make him happy.",jp:"彼を幸せにする。"}},exceptions:["使役動詞：make + O + 動詞原形（強制）","make it = うまくやる・間に合う"],output:{"SVO":[{en:"I make a cake.",jp:"私はケーキを作る。"},{en:"She makes dinner every day.",jp:"彼女は毎日夕食を作る。"},{en:"We make plans together.",jp:"私たちは一緒に計画を立てる。"}],"SVOO":[{en:"I make you a cake.",jp:"私はあなたにケーキを作る。"},{en:"He made her coffee.",jp:"彼は彼女にコーヒーを作った。"},{en:"She made me a sandwich.",jp:"彼女は私にサンドイッチを作ってくれた。"}],"SVOC":[{en:"I make him happy.",jp:"私は彼を幸せにする。"},{en:"The news made her sad.",jp:"そのニュースは彼女を悲しくさせた。"},{en:"Hard work makes you stronger.",jp:"努力はあなたを強くする。"}]}},
+  get:     {meaning:"得る / 〜になる / 着く",forms:{"原形":"get","三単現":"gets","過去形":"got","過去分詞":"gotten/got","現在分詞":"getting"},patterns:{SV:{en:"I get there by bus.",jp:"私はバスでそこに着く。"},SVO:{en:"I get a gift.",jp:"私はプレゼントをもらう。"},SVOO:{en:"I get you a seat.",jp:"あなたに席を取る。"},SVOC:{en:"I get him to work.",jp:"彼に仕事をさせる。"}},exceptions:["get + 形容詞 = 〜になる（get tired / get better）","使役：get + O + to不定詞"],output:{"SVO":[{en:"I got a new job.",jp:"私は新しい仕事を得た。"},{en:"She gets good grades.",jp:"彼女は良い成績を取る。"},{en:"We got the news.",jp:"私たちはそのニュースを聞いた。"}],"応用":[{en:"I got tired after work.",jp:"仕事の後に疲れた。"},{en:"She got better quickly.",jp:"彼女はすぐに良くなった。"},{en:"He got her to sign the form.",jp:"彼は彼女に書類にサインさせた。"}]}},
+  take:    {meaning:"取る / 連れて行く / かかる",forms:{"原形":"take","三単現":"takes","過去形":"took","過去分詞":"taken","現在分詞":"taking"},patterns:{SV:null,SVO:{en:"I take a bus.",jp:"私はバスに乗る。"},SVOO:{en:"I take him a message.",jp:"彼にメッセージを持っていく。"},SVOC:null},exceptions:["It takes + 時間 = 〜の時間がかかる","take + O + to場所 = Oを〜へ連れて行く"],output:{"SVO":[{en:"I take a bus to work.",jp:"私はバスで通勤する。"},{en:"She took a photo.",jp:"彼女は写真を撮った。"},{en:"He takes a walk every evening.",jp:"彼は毎晩散歩する。"}],"応用":[{en:"It takes two hours to get there.",jp:"そこに着くのに2時間かかる。"},{en:"She took me to the hospital.",jp:"彼女は私を病院に連れて行った。"},{en:"Take your time.",jp:"ゆっくりどうぞ。"}]}},
+  give:    {meaning:"与える / 渡す",forms:{"原形":"give","三単現":"gives","過去形":"gave","過去分詞":"given","現在分詞":"giving"},patterns:{SV:null,SVO:{en:"I give money.",jp:"私はお金を渡す。"},SVOO:{en:"I give her a book.",jp:"私は彼女に本をあげる。"},SVOC:null},exceptions:["give up = あきらめる","give in = 従う・折れる"],output:{"SVOO":[{en:"I gave her a book.",jp:"私は彼女に本をあげた。"},{en:"She gives her students homework.",jp:"彼女は生徒たちに宿題を与える。"},{en:"He gave me good advice.",jp:"彼は私に良いアドバイスをくれた。"}],"応用":[{en:"Don't give up.",jp:"あきらめないで。"},{en:"She gave a speech.",jp:"彼女はスピーチをした。"},{en:"Give me a call later.",jp:"後で電話して。"}]}},
+  know:    {meaning:"知っている / わかる",forms:{"原形":"know","三単現":"knows","過去形":"knew","過去分詞":"known","現在分詞":"knowing"},patterns:{SV:null,SVO:{en:"I know the answer.",jp:"私は答えを知っている。"},SVOO:null,SVOC:null},exceptions:["状態動詞のため進行形にしない（×I am knowing）","You know = ほら・つまり（口語）"],output:{"SVO":[{en:"I know the answer.",jp:"私は答えを知っている。"},{en:"She knows how to cook.",jp:"彼女は料理の仕方を知っている。"},{en:"Do you know him?",jp:"あなたは彼を知っていますか？"}],"応用":[{en:"I knew it would rain.",jp:"雨が降るとわかっていた。"},{en:"Let me know if you need help.",jp:"助けが必要なら教えて。"},{en:"She is known as a great singer.",jp:"彼女は偉大な歌手として知られている。"}]}},
+  think:   {meaning:"思う / 考える",forms:{"原形":"think","三単現":"thinks","過去形":"thought","過去分詞":"thought","現在分詞":"thinking"},patterns:{SV:null,SVO:{en:"I think about it.",jp:"私はそれについて考える。"},SVOO:null,SVOC:{en:"I think him smart.",jp:"私は彼が賢いと思う。"}},exceptions:["think of = 〜を思いつく","think about = 〜について考える"],output:{"SVO":[{en:"I think about the future.",jp:"私は将来について考える。"},{en:"She thinks of a good idea.",jp:"彼女は良いアイデアを思いつく。"},{en:"What do you think?",jp:"あなたはどう思いますか？"}],"応用":[{en:"I think it will be fine.",jp:"大丈夫だと思う。"},{en:"Think carefully before deciding.",jp:"決める前によく考えて。"},{en:"I was thinking about you.",jp:"あなたのことを考えていた。"}]}},
+  say:     {meaning:"言う / 述べる",forms:{"原形":"say","三単現":"says","過去形":"said","過去分詞":"said","現在分詞":"saying"},patterns:{SV:null,SVO:{en:"She says hello.",jp:"彼女はこんにちはと言う。"},SVOO:null,SVOC:null},exceptions:["say to + 人 = 〜に言う","They say (that)... = 〜と言われている"],output:{"SVO":[{en:"She says hello to everyone.",jp:"彼女はみんなにこんにちはと言う。"},{en:"He said nothing.",jp:"彼は何も言わなかった。"},{en:"What did you say?",jp:"何と言いましたか？"}],"応用":[{en:"They say it will snow tomorrow.",jp:"明日雪が降ると言われている。"},{en:"It is said that he is rich.",jp:"彼は金持ちだと言われている。"},{en:"Say it again, please.",jp:"もう一度言ってください。"}]}},
+  tell:    {meaning:"伝える / 話す / 命じる",forms:{"原形":"tell","三単現":"tells","過去形":"told","過去分詞":"told","現在分詞":"telling"},patterns:{SV:null,SVO:null,SVOO:{en:"I tell her the truth.",jp:"私は彼女に真実を伝える。"},SVOC:{en:"I tell him to stop.",jp:"私は彼に止まるよう言う。"}},exceptions:["tell + O + to不定詞 = Oに〜するよう言う","tell A from B = AとBを区別する"],output:{"SVOO":[{en:"I told her the truth.",jp:"私は彼女に真実を伝えた。"},{en:"He tells us stories.",jp:"彼は私たちに話をしてくれる。"},{en:"Please tell me your name.",jp:"名前を教えてください。"}],"SVOC":[{en:"She told him to be quiet.",jp:"彼女は彼に静かにするよう言った。"},{en:"I told you to wait.",jp:"待つように言ったでしょう。"},{en:"Tell me what happened.",jp:"何が起きたか教えて。"}]}},
+  see:     {meaning:"見える / 理解する / 会う",forms:{"原形":"see","三単現":"sees","過去形":"saw","過去分詞":"seen","現在分詞":"seeing"},patterns:{SV:null,SVO:{en:"I see a bird.",jp:"私は鳥が見える。"},SVOO:null,SVOC:{en:"I see him run.",jp:"彼が走るのが見える。"}},exceptions:["知覚動詞：see + O + 動詞原形/現在分詞","I see. = なるほど・わかった（慣用句）"],output:{"SVO":[{en:"I see a bird in the tree.",jp:"木に鳥が見える。"},{en:"She saw a movie last night.",jp:"彼女は昨夜映画を見た。"},{en:"I see what you mean.",jp:"あなたの言いたいことがわかる。"}],"SVOC":[{en:"I saw him run away.",jp:"彼が逃げるのを見た。"},{en:"She saw the kids playing.",jp:"子供たちが遊んでいるのを見た。"},{en:"Did you see anyone leave?",jp:"誰かが出て行くのを見ましたか？"}]}},
+  come:    {meaning:"来る / 〜になる",forms:{"原形":"come","三単現":"comes","過去形":"came","過去分詞":"come","現在分詞":"coming"},patterns:{SV:{en:"She comes here.",jp:"彼女はここに来る。"},SVO:null,SVOO:null,SVOC:null},exceptions:["come true = 実現する","come from = 〜出身である","come up with = 思いつく"],output:{"SV":[{en:"She comes here every day.",jp:"彼女は毎日ここに来る。"},{en:"He came late to the meeting.",jp:"彼は会議に遅れてきた。"},{en:"Come here, please.",jp:"こちらへ来てください。"}],"応用":[{en:"His dream came true.",jp:"彼の夢が実現した。"},{en:"She comes from Japan.",jp:"彼女は日本出身だ。"},{en:"I came up with a good idea.",jp:"良いアイデアを思いついた。"}]}},
+  go:      {meaning:"行く / 〜になる",forms:{"原形":"go","三単現":"goes","過去形":"went","過去分詞":"gone","現在分詞":"going"},patterns:{SV:{en:"I go to school.",jp:"私は学校へ行く。"},SVO:null,SVOO:null,SVOC:null},exceptions:["go + 形容詞 = 〜な状態になる（go wrong / go bad）","be going to = 〜するつもりだ"],output:{"SV":[{en:"I go to school by bike.",jp:"私は自転車で学校へ行く。"},{en:"She went to Paris last year.",jp:"彼女は昨年パリへ行った。"},{en:"Let's go!",jp:"行こう！"}],"応用":[{en:"Everything went wrong.",jp:"すべてがうまくいかなかった。"},{en:"I'm going to study tonight.",jp:"今夜勉強するつもりだ。"},{en:"Go ahead.",jp:"どうぞ。"}]}},
+  want:    {meaning:"欲しい / 望む",forms:{"原形":"want","三単現":"wants","過去形":"wanted","過去分詞":"wanted","現在分詞":"wanting"},patterns:{SV:null,SVO:{en:"I want a coffee.",jp:"私はコーヒーが欲しい。"},SVOO:null,SVOC:{en:"I want him to help.",jp:"私は彼に手伝ってほしい。"}},exceptions:["want + O + to不定詞 = Oに〜してほしい","状態動詞のため進行形にしにくい"],output:{"SVO":[{en:"I want a coffee.",jp:"コーヒーが欲しい。"},{en:"She wants a new phone.",jp:"彼女は新しい電話が欲しい。"},{en:"What do you want?",jp:"何が欲しいですか？"}],"SVOC":[{en:"I want him to help me.",jp:"彼に手伝ってほしい。"},{en:"She wants her son to study.",jp:"彼女は息子に勉強してほしい。"},{en:"I want you to be happy.",jp:"あなたに幸せでいてほしい。"}]}},
+  use:     {meaning:"使う / 利用する",forms:{"原形":"use","三単現":"uses","過去形":"used","過去分詞":"used","現在分詞":"using"},patterns:{SV:null,SVO:{en:"I use a computer.",jp:"私はコンピューターを使う。"},SVOO:null,SVOC:null},exceptions:["used to + 動詞原形 = かつて〜した（過去の習慣）","be used to + 動名詞 = 〜に慣れている"],output:{"SVO":[{en:"I use a computer at work.",jp:"私は仕事でコンピューターを使う。"},{en:"She uses public transport.",jp:"彼女は公共交通機関を使う。"},{en:"Can I use your pen?",jp:"ペンを使ってもいいですか？"}],"応用":[{en:"I used to live in Tokyo.",jp:"かつて東京に住んでいた。"},{en:"She is used to waking up early.",jp:"彼女は早起きに慣れている。"},{en:"Use your time wisely.",jp:"時間を賢く使って。"}]}},
+  find:    {meaning:"見つける / わかる",forms:{"原形":"find","三単現":"finds","過去形":"found","過去分詞":"found","現在分詞":"finding"},patterns:{SV:null,SVO:{en:"I find my keys.",jp:"私は鍵を見つける。"},SVOO:null,SVOC:{en:"I find it easy.",jp:"私はそれが簡単だとわかる。"}},exceptions:["find out = 調べてわかる・判明する"],output:{"SVO":[{en:"I found my keys.",jp:"鍵を見つけた。"},{en:"She found a job.",jp:"彼女は仕事を見つけた。"},{en:"Can you find the station?",jp:"駅を見つけられますか？"}],"SVOC":[{en:"I find it easy.",jp:"それが簡単だとわかる。"},{en:"She found the work interesting.",jp:"彼女はその仕事が面白いとわかった。"},{en:"I found him sleeping.",jp:"彼が寝ているのを見つけた。"}]}},
+  feel:    {meaning:"感じる / 〜に感じる",forms:{"原形":"feel","三単現":"feels","過去形":"felt","過去分詞":"felt","現在分詞":"feeling"},patterns:{SV:{en:"I feel well.",jp:"私は気分がいい。"},SVO:{en:"I feel the wind.",jp:"私は風を感じる。"},SVOO:null,SVOC:{en:"I feel it strange.",jp:"私はそれを奇妙に感じる。"}},exceptions:["feel like + 動名詞 = 〜したい気分だ","feel + 形容詞 = 〜な気分である"],output:{"SV/SVO":[{en:"I feel great today.",jp:"今日は最高の気分だ。"},{en:"She felt the cold wind.",jp:"彼女は冷たい風を感じた。"},{en:"How do you feel?",jp:"気分はどうですか？"}],"応用":[{en:"I feel like having a coffee.",jp:"コーヒーが飲みたい気分だ。"},{en:"She felt nervous before the speech.",jp:"スピーチ前に緊張を感じた。"},{en:"It feels soft.",jp:"柔らかく感じる。"}]}},
+  leave:   {meaning:"去る / 出発する / 残す",forms:{"原形":"leave","三単現":"leaves","過去形":"left","過去分詞":"left","現在分詞":"leaving"},patterns:{SV:{en:"I leave at 8.",jp:"私は8時に出発する。"},SVO:{en:"I leave a message.",jp:"私はメッセージを残す。"},SVOO:{en:"I leave her a note.",jp:"彼女にメモを残す。"},SVOC:{en:"Leave the door open.",jp:"ドアを開けたままにしておく。"}},exceptions:["leave + O + C = OをCの状態にしておく","leave out = 省く・除外する"],output:{"SV/SVO":[{en:"I leave home at 7.",jp:"私は7時に家を出る。"},{en:"She left a message.",jp:"彼女はメッセージを残した。"},{en:"Don't leave without me.",jp:"私を置いていかないで。"}],"SVOC":[{en:"Leave the door open.",jp:"ドアを開けたままにして。"},{en:"She left the engine running.",jp:"彼女はエンジンをかけたままにした。"},{en:"Don't leave me waiting.",jp:"私を待たせないで。"}]}},
+  keep:    {meaning:"保つ / 続ける / 保管する",forms:{"原形":"keep","三単現":"keeps","過去形":"kept","過去分詞":"kept","現在分詞":"keeping"},patterns:{SV:null,SVO:{en:"I keep a diary.",jp:"私は日記をつける。"},SVOO:null,SVOC:{en:"Keep it clean.",jp:"それを清潔に保つ。"}},exceptions:["keep + 動名詞 = 〜し続ける","keep + O + C = OをCの状態に保つ"],output:{"SVO":[{en:"I keep a diary.",jp:"日記をつけている。"},{en:"She keeps her promises.",jp:"彼女は約束を守る。"},{en:"Keep the change.",jp:"おつりはいいです。"}],"SVOC/応用":[{en:"Keep it clean.",jp:"清潔に保って。"},{en:"She kept working late.",jp:"彼女は遅くまで働き続けた。"},{en:"Keep calm.",jp:"冷静でいて。"}]}},
+  let:     {meaning:"させる / 許可する",forms:{"原形":"let","三単現":"lets","過去形":"let","過去分詞":"let","現在分詞":"letting"},patterns:{SV:null,SVO:null,SVOO:null,SVOC:{en:"Let him go.",jp:"彼を行かせる。"}},exceptions:["使役動詞：let + O + 動詞原形（許可のニュアンス）","let's = let us（〜しましょう）"],output:{"SVOC":[{en:"Let him go.",jp:"彼を行かせて。"},{en:"She lets her kids play outside.",jp:"彼女は子供たちを外で遊ばせる。"},{en:"Let me know.",jp:"知らせてください。"}],"応用":[{en:"Let's eat out tonight.",jp:"今夜は外食しましょう。"},{en:"Let me help you.",jp:"手伝わせてください。"},{en:"Don't let it bother you.",jp:"気にしないで。"}]}},
+  put:     {meaning:"置く / 置く（状態に）",forms:{"原形":"put","三単現":"puts","過去形":"put","過去分詞":"put","現在分詞":"putting"},patterns:{SV:null,SVO:{en:"I put the book here.",jp:"私はここに本を置く。"},SVOO:null,SVOC:{en:"Put it straight.",jp:"まっすぐにして置く。"}},exceptions:["put off = 延期する","put on = 着る・つける","put up with = 〜を我慢する"],output:{"SVO":[{en:"I put the book on the shelf.",jp:"本を棚に置いた。"},{en:"She puts her keys by the door.",jp:"彼女は鍵をドアのそばに置く。"},{en:"Put your phone away.",jp:"電話をしまって。"}],"応用":[{en:"We put off the meeting.",jp:"会議を延期した。"},{en:"She put on her coat.",jp:"彼女はコートを着た。"},{en:"I can't put up with the noise.",jp:"騒音に我慢できない。"}]}},
+  ask:     {meaning:"尋ねる / 頼む",forms:{"原形":"ask","三単現":"asks","過去形":"asked","過去分詞":"asked","現在分詞":"asking"},patterns:{SV:null,SVO:{en:"I ask a question.",jp:"私は質問をする。"},SVOO:{en:"I ask her a question.",jp:"私は彼女に質問する。"},SVOC:{en:"I ask him to help.",jp:"私は彼に手伝うよう頼む。"}},exceptions:["ask + O + to不定詞 = Oに〜するよう頼む","ask for = 〜を求める・要求する"],output:{"SVOO":[{en:"I asked her a question.",jp:"私は彼女に質問した。"},{en:"He asks us for advice.",jp:"彼は私たちにアドバイスを求める。"},{en:"Ask him his name.",jp:"彼に名前を聞いて。"}],"SVOC":[{en:"I asked him to help.",jp:"彼に手伝うよう頼んだ。"},{en:"She asked me to wait.",jp:"彼女は私に待つよう頼んだ。"},{en:"He asked her to marry him.",jp:"彼は彼女にプロポーズした。"}]}},
+  seem:    {meaning:"〜のようだ / 思われる",forms:{"原形":"seem","三単現":"seems","過去形":"seemed","過去分詞":"seemed","現在分詞":"seeming"},patterns:{SV:{en:"She seems fine.",jp:"彼女は大丈夫そうだ。"},SVO:null,SVOO:null,SVOC:null},exceptions:["seem + 形容詞/to不定詞","It seems (that)... = 〜のようだ"],output:{"応用":[{en:"She seems fine.",jp:"彼女は大丈夫そうだ。"},{en:"He seems to be tired.",jp:"彼は疲れているようだ。"},{en:"It seems that she is busy.",jp:"彼女は忙しいようだ。"}],"会話":[{en:"That seems like a good idea.",jp:"それは良いアイデアのようだ。"},{en:"Things seem to be getting better.",jp:"状況は良くなっているようだ。"},{en:"She doesn't seem happy.",jp:"彼女は幸せそうではない。"}]}},
+  show:    {meaning:"見せる / 示す",forms:{"原形":"show","三単現":"shows","過去形":"showed","過去分詞":"shown/showed","現在分詞":"showing"},patterns:{SV:null,SVO:{en:"Show your ticket.",jp:"チケットを見せて。"},SVOO:{en:"Show me the way.",jp:"道を教えて。"},SVOC:null},exceptions:["show up = 現れる・姿を見せる","show off = 見せびらかす"],output:{"SVOO":[{en:"Show me your passport.",jp:"パスポートを見せてください。"},{en:"She showed him the photos.",jp:"彼女は彼に写真を見せた。"},{en:"Can you show me how to do it?",jp:"やり方を見せてもらえますか？"}],"応用":[{en:"He showed up late.",jp:"彼は遅れて現れた。"},{en:"The data shows a clear trend.",jp:"データは明確な傾向を示している。"},{en:"She showed great courage.",jp:"彼女は大きな勇気を見せた。"}]}},
+  turn:    {meaning:"回る / 変わる / 向ける",forms:{"原形":"turn","三単現":"turns","過去形":"turned","過去分詞":"turned","現在分詞":"turning"},patterns:{SV:{en:"Turn left here.",jp:"ここで左に曲がって。"},SVO:{en:"Turn the page.",jp:"ページをめくる。"},SVOO:null,SVOC:{en:"Turn the volume down.",jp:"音量を下げる。"}},exceptions:["turn into = 〜に変わる","turn on/off = スイッチを入れる・切る","turn out = 〜であるとわかる"],output:{"SV/SVO":[{en:"Turn left at the corner.",jp:"角を左に曲がって。"},{en:"She turned the page slowly.",jp:"彼女はゆっくりページをめくった。"},{en:"The weather turned cold.",jp:"天気が寒くなった。"}],"応用":[{en:"Turn off the light.",jp:"電気を消して。"},{en:"The caterpillar turned into a butterfly.",jp:"毛虫が蝶になった。"},{en:"It turned out to be true.",jp:"それは本当だとわかった。"}]}},
+  help:    {meaning:"助ける / 手伝う",forms:{"原形":"help","三単現":"helps","過去形":"helped","過去分詞":"helped","現在分詞":"helping"},patterns:{SV:null,SVO:{en:"I help my friend.",jp:"私は友人を助ける。"},SVOO:null,SVOC:{en:"I help her study.",jp:"私は彼女の勉強を手伝う。"}},exceptions:["help + O + (to) 動詞原形 = Oが〜するのを手伝う","I can't help + 動名詞 = 〜せずにはいられない"],output:{"SVO":[{en:"I helped my friend move.",jp:"友人の引越しを手伝った。"},{en:"She helps elderly people.",jp:"彼女は高齢者を助ける。"},{en:"Can I help you?",jp:"お手伝いしましょうか？"}],"SVOC/応用":[{en:"I help her study English.",jp:"彼女の英語の勉強を手伝う。"},{en:"This map will help you find it.",jp:"この地図で見つけられるでしょう。"},{en:"I can't help laughing.",jp:"笑わずにはいられない。"}]}},
+  try:     {meaning:"試みる / 努力する",forms:{"原形":"try","三単現":"tries","過去形":"tried","過去分詞":"tried","現在分詞":"trying"},patterns:{SV:null,SVO:{en:"Try this food.",jp:"この食べ物を試して。"},SVOO:null,SVOC:null},exceptions:["try to + 動詞原形 = 〜しようとする","try + 動名詞 = 試しに〜してみる"],output:{"SVO":[{en:"Try this food.",jp:"この料理を試して。"},{en:"She tried a new approach.",jp:"彼女は新しいアプローチを試みた。"},{en:"Try your best.",jp:"最善を尽くして。"}],"応用":[{en:"I tried to call you.",jp:"あなたに電話しようとした。"},{en:"Try eating more vegetables.",jp:"もっと野菜を食べてみて。"},{en:"Keep trying.",jp:"挑戦し続けて。"}]}},
+  start:   {meaning:"始める / 始まる",forms:{"原形":"start","三単現":"starts","過去形":"started","過去分詞":"started","現在分詞":"starting"},patterns:{SV:{en:"The show starts at 7.",jp:"ショーは7時に始まる。"},SVO:{en:"I start work at 9.",jp:"私は9時に仕事を始める。"},SVOO:null,SVOC:null},exceptions:["start + 動名詞/to不定詞 = 〜し始める（意味はほぼ同じ）"],output:{"SV/SVO":[{en:"The show starts at 7.",jp:"ショーは7時に始まる。"},{en:"I start work at 9 every day.",jp:"毎日9時に仕事を始める。"},{en:"When did you start learning English?",jp:"いつ英語を学び始めましたか？"}],"応用":[{en:"She started to cry.",jp:"彼女は泣き始めた。"},{en:"Let's start from the beginning.",jp:"最初から始めましょう。"},{en:"Start over.",jp:"最初からやり直して。"}]}},
+  call:    {meaning:"電話する / 呼ぶ / 〜と呼ぶ",forms:{"原形":"call","三単現":"calls","過去形":"called","過去分詞":"called","現在分詞":"calling"},patterns:{SV:null,SVO:{en:"Call me tomorrow.",jp:"明日電話して。"},SVOO:{en:"Call me a taxi.",jp:"タクシーを呼んで。"},SVOC:{en:"Call him Tom.",jp:"彼をトムと呼ぶ。"}},exceptions:["call off = 中止する","call on = 〜を訪問する・指名する"],output:{"SVO/SVOO":[{en:"Call me tomorrow.",jp:"明日電話して。"},{en:"She called him a doctor.",jp:"彼女は医者を呼んだ。"},{en:"I'll call you back.",jp:"折り返し電話します。"}],"SVOC/応用":[{en:"They call him Lucky.",jp:"彼らは彼をラッキーと呼ぶ。"},{en:"The game was called off.",jp:"試合は中止になった。"},{en:"Call on me anytime.",jp:"いつでも頼って。"}]}},
+  need:    {meaning:"必要とする / 〜する必要がある",forms:{"原形":"need","三単現":"needs","過去形":"needed","過去分詞":"needed","現在分詞":"needing"},patterns:{SV:null,SVO:{en:"I need help.",jp:"私は助けが必要だ。"},SVOO:null,SVOC:{en:"I need you to come.",jp:"あなたに来てほしい。"}},exceptions:["need to + 動詞原形 = 〜する必要がある","need not（needn't）= 〜する必要はない（助動詞用法）"],output:{"SVO":[{en:"I need help.",jp:"助けが必要だ。"},{en:"She needs more time.",jp:"彼女はもっと時間が必要だ。"},{en:"Do you need anything?",jp:"何か必要なものはありますか？"}],"応用":[{en:"You need to study harder.",jp:"もっと一生懸命勉強する必要がある。"},{en:"You needn't worry.",jp:"心配する必要はない。"},{en:"I need you to be honest.",jp:"正直でいてほしい。"}]}},
+  // ── 新規20動詞 ──
+  speak:   {meaning:"話す / 発言する",forms:{"原形":"speak","三単現":"speaks","過去形":"spoke","過去分詞":"spoken","現在分詞":"speaking"},patterns:{SV:{en:"He speaks clearly.",jp:"彼は明確に話す。"},SVO:{en:"I speak English.",jp:"私は英語を話す。"},SVOO:null,SVOC:null},exceptions:["speak to / with = 〜と話す","speak up = はっきり話す・声を上げる"],output:{"SV/SVO":[{en:"I speak English and Japanese.",jp:"私は英語と日本語を話す。"},{en:"She spoke at the meeting.",jp:"彼女は会議で発言した。"},{en:"Can you speak more slowly?",jp:"もっとゆっくり話してもらえますか？"}],"応用":[{en:"May I speak to Mr. Smith?",jp:"スミスさんをお願いします。"},{en:"He speaks highly of her.",jp:"彼は彼女を高く評価している。"},{en:"Speak up, please.",jp:"はっきり話してください。"}]}},
+  write:   {meaning:"書く / 執筆する",forms:{"原形":"write","三単現":"writes","過去形":"wrote","過去分詞":"written","現在分詞":"writing"},patterns:{SV:null,SVO:{en:"I write a letter.",jp:"私は手紙を書く。"},SVOO:{en:"I write her a letter.",jp:"彼女に手紙を書く。"},SVOC:null},exceptions:["write down = 書き留める","write back = 返事を書く"],output:{"SVO":[{en:"I write a letter every week.",jp:"私は毎週手紙を書く。"},{en:"She wrote a novel.",jp:"彼女は小説を書いた。"},{en:"Write your name here.",jp:"ここに名前を書いて。"}],"SVOO/応用":[{en:"I wrote her a long email.",jp:"彼女に長いメールを書いた。"},{en:"Write down the main points.",jp:"要点を書き留めて。"},{en:"He wrote back immediately.",jp:"彼はすぐに返事を書いた。"}]}},
+  read:    {meaning:"読む / 読み上げる",forms:{"原形":"read","三単現":"reads","過去形":"read","過去分詞":"read","現在分詞":"reading"},patterns:{SV:null,SVO:{en:"I read a book.",jp:"私は本を読む。"},SVOO:{en:"I read her a story.",jp:"彼女に話を読んであげる。"},SVOC:null},exceptions:["read と書いて過去形も read（発音は /rɛd/）","read out = 声に出して読む"],output:{"SVO":[{en:"I read a book every night.",jp:"毎晩本を読む。"},{en:"She reads the news in the morning.",jp:"彼女は朝ニュースを読む。"},{en:"Have you read this article?",jp:"この記事を読みましたか？"}],"SVOO/応用":[{en:"I read her a bedtime story.",jp:"彼女に寝る前の話を読んであげた。"},{en:"Read out the instructions.",jp:"指示を読み上げて。"},{en:"I read between the lines.",jp:"行間を読んだ。"}]}},
+  listen:  {meaning:"聞く / 耳を傾ける",forms:{"原形":"listen","三単現":"listens","過去形":"listened","過去分詞":"listened","現在分詞":"listening"},patterns:{SV:{en:"Please listen carefully.",jp:"よく聞いてください。"},SVO:null,SVOO:null,SVOC:null},exceptions:["listen to = 〜を聞く（前置詞 to が必要）","listen up = 注意して聞く（口語）"],output:{"SV/応用":[{en:"Please listen carefully.",jp:"よく聞いてください。"},{en:"She listens to music on the way to work.",jp:"彼女は通勤中に音楽を聴く。"},{en:"Listen to me.",jp:"私の話を聞いて。"}],"会話":[{en:"I listened to his advice.",jp:"私は彼のアドバイスに耳を傾けた。"},{en:"Listen up, everyone!",jp:"みんな、聞いて！"},{en:"He never listens.",jp:"彼は決して言うことを聞かない。"}]}},
+  eat:     {meaning:"食べる",forms:{"原形":"eat","三単現":"eats","過去形":"ate","過去分詞":"eaten","現在分詞":"eating"},patterns:{SV:{en:"Let's eat.",jp:"食べましょう。"},SVO:{en:"I eat breakfast.",jp:"私は朝食を食べる。"},SVOO:null,SVOC:null},exceptions:["eat out = 外食する","eat up = 全部食べる"],output:{"SVO":[{en:"I eat breakfast every morning.",jp:"毎朝朝食を食べる。"},{en:"She ate a big meal.",jp:"彼女はたくさん食べた。"},{en:"What do you want to eat?",jp:"何を食べたいですか？"}],"応用":[{en:"Let's eat out tonight.",jp:"今夜は外食しましょう。"},{en:"Eat up your vegetables.",jp:"野菜を全部食べて。"},{en:"I haven't eaten yet.",jp:"まだ食べていない。"}]}},
+  drink:   {meaning:"飲む",forms:{"原形":"drink","三単現":"drinks","過去形":"drank","過去分詞":"drunk","現在分詞":"drinking"},patterns:{SV:null,SVO:{en:"I drink coffee.",jp:"私はコーヒーを飲む。"},SVOO:null,SVOC:null},exceptions:["drink up = 飲み干す","drink to = 〜に乾杯する"],output:{"SVO":[{en:"I drink coffee every morning.",jp:"毎朝コーヒーを飲む。"},{en:"She drank a glass of water.",jp:"彼女はコップ一杯の水を飲んだ。"},{en:"What would you like to drink?",jp:"何を飲みますか？"}],"応用":[{en:"Drink up your milk.",jp:"ミルクを飲み干して。"},{en:"Let's drink to your success!",jp:"あなたの成功に乾杯！"},{en:"He drinks too much coffee.",jp:"彼はコーヒーを飲みすぎる。"}]}},
+  sleep:   {meaning:"眠る / 寝る",forms:{"原形":"sleep","三単現":"sleeps","過去形":"slept","過去分詞":"slept","現在分詞":"sleeping"},patterns:{SV:{en:"I sleep early.",jp:"私は早く寝る。"},SVO:null,SVOO:null,SVOC:null},exceptions:["sleep in = 朝寝坊する","sleep on it = 一晩考える"],output:{"SV":[{en:"I sleep early on weekdays.",jp:"平日は早く寝る。"},{en:"She slept for ten hours.",jp:"彼女は10時間眠った。"},{en:"Did you sleep well?",jp:"よく眠れましたか？"}],"応用":[{en:"I slept in on Sunday.",jp:"日曜日に朝寝坊した。"},{en:"Let me sleep on it.",jp:"一晩考えさせて。"},{en:"The baby is sleeping.",jp:"赤ちゃんが眠っている。"}]}},
+  run:     {meaning:"走る / 経営する",forms:{"原形":"run","三単現":"runs","過去形":"ran","過去分詞":"run","現在分詞":"running"},patterns:{SV:{en:"I run every day.",jp:"私は毎日走る。"},SVO:{en:"She runs a business.",jp:"彼女はビジネスを経営する。"},SVOO:null,SVOC:null},exceptions:["run out of = 〜を使い果たす","run into = 偶然会う","run for = 〜に立候補する"],output:{"SV/SVO":[{en:"I run every morning.",jp:"毎朝走る。"},{en:"She runs a small restaurant.",jp:"彼女は小さなレストランを経営している。"},{en:"The train runs on time.",jp:"電車は時間通りに走る。"}],"応用":[{en:"We ran out of milk.",jp:"牛乳を使い果たした。"},{en:"I ran into an old friend.",jp:"旧友に偶然会った。"},{en:"He is running for president.",jp:"彼は大統領に立候補している。"}]}},
+  walk:    {meaning:"歩く / 散歩する",forms:{"原形":"walk","三単現":"walks","過去形":"walked","過去分詞":"walked","現在分詞":"walking"},patterns:{SV:{en:"I walk to work.",jp:"私は歩いて通勤する。"},SVO:{en:"I walk the dog.",jp:"私は犬を散歩させる。"},SVOO:null,SVOC:null},exceptions:["walk away = 立ち去る","walk through = 丁寧に説明する・通り抜ける"],output:{"SV/SVO":[{en:"I walk to the station every day.",jp:"毎日駅まで歩く。"},{en:"She walks her dog in the park.",jp:"彼女は公園で犬を散歩させる。"},{en:"Let's walk a little faster.",jp:"もう少し早く歩きましょう。"}],"応用":[{en:"He walked away without a word.",jp:"彼は一言も言わずに立ち去った。"},{en:"Let me walk you through the process.",jp:"手順を丁寧に説明します。"},{en:"She walked into the room.",jp:"彼女は部屋に入った。"}]}},
+  work:    {meaning:"働く / 機能する",forms:{"原形":"work","三単現":"works","過去形":"worked","過去分詞":"worked","現在分詞":"working"},patterns:{SV:{en:"I work hard.",jp:"私は一生懸命働く。"},SVO:{en:"I work the night shift.",jp:"私は夜勤をする。"},SVOO:null,SVOC:null},exceptions:["work out = 解決する・運動する","work on = 〜に取り組む"],output:{"SV":[{en:"I work hard every day.",jp:"毎日一生懸命働く。"},{en:"She works at a hospital.",jp:"彼女は病院で働く。"},{en:"The plan worked perfectly.",jp:"計画は完璧に機能した。"}],"応用":[{en:"Things will work out.",jp:"物事はうまくいくだろう。"},{en:"I'm working on a new project.",jp:"新しいプロジェクトに取り組んでいる。"},{en:"Does this method work?",jp:"この方法は機能しますか？"}]}},
+  live:    {meaning:"住む / 生きる",forms:{"原形":"live","三単現":"lives","過去形":"lived","過去分詞":"lived","現在分詞":"living"},patterns:{SV:{en:"I live in Tokyo.",jp:"私は東京に住んでいる。"},SVO:null,SVOO:null,SVOC:null},exceptions:["live up to = 〜に応える","live on = 〜を食べて生きる / 〜で生活する"],output:{"SV":[{en:"I live in Tokyo.",jp:"私は東京に住んでいる。"},{en:"She has lived here for ten years.",jp:"彼女はここに10年住んでいる。"},{en:"Where do you live?",jp:"どこに住んでいますか？"}],"応用":[{en:"He lived up to our expectations.",jp:"彼は私たちの期待に応えた。"},{en:"She lives on vegetables and rice.",jp:"彼女は野菜とお米で生活している。"},{en:"Live and learn.",jp:"生きて学べ。（人生経験から学ぶ）"}]}},
+  play:    {meaning:"遊ぶ / 演奏する / 演じる",forms:{"原形":"play","三単現":"plays","過去形":"played","過去分詞":"played","現在分詞":"playing"},patterns:{SV:{en:"Children play outside.",jp:"子供たちは外で遊ぶ。"},SVO:{en:"She plays the piano.",jp:"彼女はピアノを弾く。"},SVOO:null,SVOC:null},exceptions:["play a role in = 〜において役割を果たす","play it safe = 安全策を取る"],output:{"SV/SVO":[{en:"She plays the piano beautifully.",jp:"彼女は美しくピアノを弾く。"},{en:"The children play in the park.",jp:"子供たちは公園で遊ぶ。"},{en:"He played a doctor in the movie.",jp:"彼は映画で医者を演じた。"}],"応用":[{en:"Music plays a big role in my life.",jp:"音楽は私の人生で大きな役割を果たしている。"},{en:"Let's play it safe.",jp:"安全策を取りましょう。"},{en:"They played a trick on him.",jp:"彼らは彼にいたずらをした。"}]}},
+  move:    {meaning:"動く / 引越す / 感動させる",forms:{"原形":"move","三単現":"moves","過去形":"moved","過去分詞":"moved","現在分詞":"moving"},patterns:{SV:{en:"She moved to Osaka.",jp:"彼女は大阪に引っ越した。"},SVO:{en:"Move the table.",jp:"テーブルを動かして。"},SVOO:null,SVOC:null},exceptions:["move on = 前に進む","be moved = 感動する"],output:{"SV/SVO":[{en:"She moved to Osaka last year.",jp:"彼女は昨年大阪に引っ越した。"},{en:"Move the table to the corner.",jp:"テーブルを隅に動かして。"},{en:"The story moved me to tears.",jp:"その話に感動して涙が出た。"}],"応用":[{en:"It's time to move on.",jp:"前に進む時だ。"},{en:"I was deeply moved by the performance.",jp:"その演技に深く感動した。"},{en:"Move quickly.",jp:"素早く動いて。"}]}},
+  change:  {meaning:"変える / 変わる",forms:{"原形":"change","三単現":"changes","過去形":"changed","過去分詞":"changed","現在分詞":"changing"},patterns:{SV:{en:"Things change.",jp:"物事は変わる。"},SVO:{en:"Change your mind.",jp:"考えを変えて。"},SVOO:null,SVOC:null},exceptions:["change into = 〜に着替える・変身する","change one's mind = 気が変わる"],output:{"SV/SVO":[{en:"Times change.",jp:"時代は変わる。"},{en:"She changed her hairstyle.",jp:"彼女は髪型を変えた。"},{en:"Can you change this into dollars?",jp:"これをドルに両替できますか？"}],"応用":[{en:"I changed my mind.",jp:"気が変わった。"},{en:"She changed into a beautiful dress.",jp:"彼女は美しいドレスに着替えた。"},{en:"Change is inevitable.",jp:"変化は避けられない。"}]}},
+  open:    {meaning:"開ける / 開く / 始まる",forms:{"原形":"open","三単現":"opens","過去形":"opened","過去分詞":"opened","現在分詞":"opening"},patterns:{SV:{en:"The shop opens at 9.",jp:"店は9時に開く。"},SVO:{en:"Open the door.",jp:"ドアを開けて。"},SVOO:null,SVOC:null},exceptions:["open up = 打ち明ける・可能性が開ける","wide open = 完全に開いた状態"],output:{"SV/SVO":[{en:"The shop opens at 9.",jp:"店は9時に開く。"},{en:"Open the window, please.",jp:"窓を開けてください。"},{en:"She opened the letter.",jp:"彼女は手紙を開けた。"}],"応用":[{en:"He finally opened up about his feelings.",jp:"彼はついに気持ちを打ち明けた。"},{en:"Open your mind to new ideas.",jp:"新しいアイデアに心を開いて。"},{en:"The door opened slowly.",jp:"ドアがゆっくり開いた。"}]}},
+  close:   {meaning:"閉める / 閉じる / 終わる",forms:{"原形":"close","三単現":"closes","過去形":"closed","過去分詞":"closed","現在分詞":"closing"},patterns:{SV:{en:"The store closes at 8.",jp:"店は8時に閉まる。"},SVO:{en:"Close the door.",jp:"ドアを閉めて。"},SVOO:null,SVOC:null},exceptions:["close down = 閉店・廃業する","close in on = 〜に迫る"],output:{"SV/SVO":[{en:"The store closes at 8.",jp:"店は8時に閉まる。"},{en:"Close your eyes.",jp:"目を閉じて。"},{en:"She closed the book.",jp:"彼女は本を閉じた。"}],"応用":[{en:"The factory closed down last year.",jp:"その工場は昨年廃業した。"},{en:"Police are closing in on the suspect.",jp:"警察は容疑者に迫っている。"},{en:"Close the gap.",jp:"差を縮めて。"}]}},
+  bring:   {meaning:"持ってくる / 連れてくる",forms:{"原形":"bring","三単現":"brings","過去形":"brought","過去分詞":"brought","現在分詞":"bringing"},patterns:{SV:null,SVO:{en:"Bring your umbrella.",jp:"傘を持ってきて。"},SVOO:{en:"Bring me a coffee.",jp:"コーヒーを持ってきて。"},SVOC:null},exceptions:["bring about = 引き起こす","bring up = 育てる・話題を出す"],output:{"SVO/SVOO":[{en:"Bring your umbrella.",jp:"傘を持ってきて。"},{en:"She brought me flowers.",jp:"彼女は私に花を持ってきた。"},{en:"Bring the report to the meeting.",jp:"会議にレポートを持ってきて。"}],"応用":[{en:"The rain brought about flooding.",jp:"雨が洪水を引き起こした。"},{en:"She was brought up in the countryside.",jp:"彼女は田舎で育った。"},{en:"Don't bring that up again.",jp:"それをまた話題にしないで。"}]}},
+  send:    {meaning:"送る / 派遣する",forms:{"原形":"send","三単現":"sends","過去形":"sent","過去分詞":"sent","現在分詞":"sending"},patterns:{SV:null,SVO:{en:"I send an email.",jp:"私はメールを送る。"},SVOO:{en:"I send her a gift.",jp:"彼女にプレゼントを送る。"},SVOC:null},exceptions:["send off = 見送る・出発させる","send for = 〜を呼び寄せる"],output:{"SVO/SVOO":[{en:"I sent an email this morning.",jp:"今朝メールを送った。"},{en:"She sends her parents money every month.",jp:"彼女は毎月親にお金を送る。"},{en:"Send me the file.",jp:"ファイルを送って。"}],"応用":[{en:"We sent off the package.",jp:"荷物を発送した。"},{en:"Send for the doctor immediately.",jp:"すぐに医者を呼んで。"},{en:"I'll send you the details.",jp:"詳細を送ります。"}]}},
+  wait:    {meaning:"待つ",forms:{"原形":"wait","三単現":"waits","過去形":"waited","過去分詞":"waited","現在分詞":"waiting"},patterns:{SV:{en:"Please wait here.",jp:"ここで待ってください。"},SVO:null,SVOO:null,SVOC:null},exceptions:["wait for = 〜を待つ","wait on = 〜に仕える・給仕する","can't wait = 待ちきれない"],output:{"SV/応用":[{en:"Please wait here.",jp:"ここで待ってください。"},{en:"I waited for her for an hour.",jp:"1時間彼女を待った。"},{en:"Don't keep me waiting.",jp:"私を待たせないで。"}],"会話":[{en:"I can't wait to see you.",jp:"あなたに会うのが待ちきれない。"},{en:"Wait a moment, please.",jp:"少々お待ちください。"},{en:"It was worth waiting for.",jp:"待った甲斐があった。"}]}}
+};
+
+let currentVerb="be",quizScore=0,quizTotal=0,quizAnswered=false,quizPool=[],quizIndex=0;
+
+function speak(text){if(!window.speechSynthesis)return;window.speechSynthesis.cancel();const u=new SpeechSynthesisUtterance(text);u.lang="en-US";u.rate=0.9;window.speechSynthesis.speak(u);}
+function esc(s){return String(s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");}
+function escRe(s){return s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");}
+function shuffle(a){const b=[...a];for(let i=b.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[b[i],b[j]]=[b[j],b[i]];}return b;}
+
+function initSelect(){
+  const sel=document.getElementById("verbSelect");
+  Object.keys(VERBS).forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;sel.appendChild(o);});
+  sel.addEventListener("change",()=>{currentVerb=sel.value;loadVerb(currentVerb);buildQuizPool();loadQuiz();});
+}
+
+function loadVerb(name){
+  const d=VERBS[name];
+  document.getElementById("verbWord").textContent=name;
+  document.getElementById("verbMeaning").textContent=d.meaning;
+  document.getElementById("speakWordBtn").onclick=()=>speak(name);
+  const fg=document.getElementById("formsGrid");fg.innerHTML="";
+  Object.entries(d.forms).forEach(([label,val])=>{const chip=document.createElement("div");chip.className="form-chip";chip.innerHTML=`<span class="form-chip-label">${esc(label)}</span><span class="form-chip-val">${esc(val)}</span>`;chip.addEventListener("click",()=>speak(val.split("/")[0]));fg.appendChild(chip);});
+  const tbody=document.getElementById("patternsBody");tbody.innerHTML="";
+  ["SV","SVO","SVOO","SVOC"].forEach(pat=>{const data=d.patterns[pat];const tr=document.createElement("tr");if(data){tr.innerHTML=`<td><span class="badge badge-yes">${esc(pat)}</span></td><td><div>${esc(data.en)}</div><div class="jp-text">${esc(data.jp)}</div></td><td><button class="speak-btn" style="font-size:.75rem;padding:5px 10px">🔊</button></td>`;tr.querySelector(".speak-btn").addEventListener("click",()=>speak(data.en));}else{tr.innerHTML=`<td><span class="badge badge-no">${esc(pat)}</span></td><td colspan="2" style="color:var(--muted);font-size:.82rem;font-style:italic">この文型は取らない</td>`;}tbody.appendChild(tr);});
+  const exList=document.getElementById("exceptionList");exList.innerHTML="";
+  (d.exceptions&&d.exceptions.length?d.exceptions:["特記事項なし"]).forEach(e=>{const li=document.createElement("li");li.textContent=e;exList.appendChild(li);});
+  const outBody=document.getElementById("outputBody");outBody.innerHTML="";
+  Object.entries(d.output).forEach(([groupLabel,sentences])=>{const group=document.createElement("div");group.className="output-group";group.innerHTML=`<div class="output-group-label">${esc(groupLabel)}</div>`;sentences.forEach(s=>{const row=document.createElement("div");row.className="sentence-row";row.innerHTML=`<div class="sentence-texts"><div class="sentence-en">${esc(s.en)}</div><div class="sentence-jp">${esc(s.jp)}</div></div><button class="speak-btn" style="font-size:.75rem;padding:5px 10px;flex-shrink:0">🔊</button>`;row.querySelector(".speak-btn").addEventListener("click",()=>speak(s.en));group.appendChild(row);});outBody.appendChild(group);});
+}
+
+function buildQuizPool(){
+  const d=VERBS[currentVerb];const forms=Object.values(d.forms);quizPool=[];
+  Object.values(d.output).forEach(sentences=>{sentences.forEach(s=>{let matched=null;for(const f of forms){const parts=f.split("/");for(const p of parts){if(new RegExp("\\b"+escRe(p)+"\\b","i").test(s.en)){matched=p;break;}}if(matched)break;}if(!matched)return;const distractors=[...new Set(forms.map(f=>f.split("/")[0]).filter(f=>f!==matched))].slice(0,3);const options=shuffle([matched,...distractors]);const blanked=s.en.replace(new RegExp("\\b"+escRe(matched)+"\\b","i"),"___");quizPool.push({blanked,jp:s.jp,answer:matched,options});});});
+  quizPool=shuffle(quizPool);quizIndex=0;
+}
+
+function loadQuiz(){
+  quizAnswered=false;
+  const fb=document.getElementById("quizFeedback");fb.className="quiz-feedback";fb.textContent="";
+  if(!quizPool.length){document.getElementById("quizText").textContent="クイズデータがありません。";document.getElementById("quizOptions").innerHTML="";return;}
+  const q=quizPool[quizIndex%quizPool.length];
+  document.getElementById("quizText").innerHTML=q.blanked.replace("___",`<span class="blank" id="blankSpan">${esc(q.answer)}</span>`);
+  document.getElementById("blankSpan").style.color="transparent";
+  document.getElementById("quizJp").textContent=q.jp;
+  const optsEl=document.getElementById("quizOptions");optsEl.innerHTML="";
+  q.options.forEach(opt=>{const btn=document.createElement("button");btn.className="quiz-opt";btn.textContent=opt;btn.addEventListener("click",()=>handleAnswer(opt,q.answer));optsEl.appendChild(btn);});
+}
+
+function handleAnswer(chosen,correct){
+  if(quizAnswered)return;quizAnswered=true;quizTotal++;
+  if(chosen===correct)quizScore++;
+  document.querySelectorAll(".quiz-opt").forEach(btn=>{btn.disabled=true;if(btn.textContent===correct)btn.classList.add("correct");else if(btn.textContent===chosen&&chosen!==correct)btn.classList.add("wrong");});
+  const blank=document.getElementById("blankSpan");if(blank){blank.style.color="";blank.classList.add("revealed");}
+  const fb=document.getElementById("quizFeedback");
+  fb.textContent=chosen===correct?"✓ 正解！":`✗ 不正解。正解は「${correct}」です。`;
+  fb.className="quiz-feedback show "+(chosen===correct?"ok":"ng");
+  document.getElementById("scoreNum").textContent=quizScore;
+  document.getElementById("scoreDen").textContent=quizTotal;
+  document.getElementById("progressBar").style.width=(quizTotal?(quizScore/quizTotal)*100:0)+"%";
+  document.getElementById("progressLabel").textContent=`Quiz: ${quizScore}/${quizTotal}`;
+}
+
+window.addEventListener("DOMContentLoaded",()=>{
+  initSelect();loadVerb(currentVerb);buildQuizPool();loadQuiz();
+  document.getElementById("nextQuizBtn").addEventListener("click",()=>{quizIndex=(quizIndex+1)%quizPool.length;loadQuiz();});
+  document.getElementById("resetQuizBtn").addEventListener("click",()=>{quizScore=0;quizTotal=0;quizIndex=0;quizPool=shuffle(quizPool);document.getElementById("scoreNum").textContent=0;document.getElementById("scoreDen").textContent=0;document.getElementById("progressBar").style.width="0%";document.getElementById("progressLabel").textContent="Quiz: 0/0";loadQuiz();});
+});
+</script>
+</body>
+</html>
