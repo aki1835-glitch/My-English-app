@@ -43,76 +43,7 @@ go:{meaning:"行く",forms:["go","goes","went","gone","going"],
 patterns:{SV:"I go.",SVO:null,SVOO:null,SVOC:null}},
 
 come:{meaning:"来る",forms:["come","comes","came","come","coming"],
-patterns:{SV:"I come.",SVO:null,SVOO:null,SVOC:null}},
-
-see:{meaning:"見る",forms:["see","sees","saw","seen","seeing"],
-patterns:{SV:null,SVO:"I see a dog.",SVOO:null,SVOC:"I see him running."}},
-
-know:{meaning:"知る",forms:["know","knows","knew","known","knowing"],
-patterns:{SV:null,SVO:"I know him.",SVOO:null,SVOC:null}},
-
-think:{meaning:"考える",forms:["think","thinks","thought","thought","thinking"],
-patterns:{SV:null,SVO:"I think that he is right.",SVOO:null,SVOC:"I think him smart."}},
-
-give:{meaning:"与える",forms:["give","gives","gave","given","giving"],
-patterns:{SV:null,SVO:"I give a gift.",SVOO:"I give you a gift.",SVOC:null}},
-
-use:{meaning:"使う",forms:["use","uses","used","used","using"],
-patterns:{SV:null,SVO:"I use a computer.",SVOO:null,SVOC:null}},
-
-find:{meaning:"見つける",forms:["find","finds","found","found","finding"],
-patterns:{SV:null,SVO:"I find a key.",SVOO:null,SVOC:"I find this easy."}},
-
-tell:{meaning:"伝える",forms:["tell","tells","told","told","telling"],
-patterns:{SV:null,SVO:"I tell the story.",SVOO:"I tell you a story.",SVOC:null}},
-
-try:{meaning:"試す",forms:["try","tries","tried","tried","trying"],
-patterns:{SV:null,SVO:"I try it.",SVOO:null,SVOC:null}},
-
-ask:{meaning:"尋ねる",forms:["ask","asks","asked","asked","asking"],
-patterns:{SV:null,SVO:"I ask a question.",SVOO:"I ask you a question.",SVOC:null}},
-
-need:{meaning:"必要とする",forms:["need","needs","needed","needed","needing"],
-patterns:{SV:null,SVO:"I need help.",SVOO:null,SVOC:"I need him ready."}},
-
-feel:{meaning:"感じる",forms:["feel","feels","felt","felt","feeling"],
-patterns:{SV:null,SVO:"I feel pain.",SVOO:null,SVOC:"I feel happy."}},
-
-become:{meaning:"なる",forms:["become","becomes","became","become","becoming"],
-patterns:{SV:null,SVO:null,SVOO:null,SVOC:"I become a teacher."}},
-
-leave:{meaning:"去る / 残す",forms:["leave","leaves","left","left","leaving"],
-patterns:{SV:null,SVO:"I leave the room.",SVOO:null,SVOC:"I leave the door open."}},
-
-put:{meaning:"置く",forms:["put","puts","put","put","putting"],
-patterns:{SV:null,SVO:"I put the book.",SVOO:null,SVOC:"I put the book on the table."}},
-
-keep:{meaning:"保つ",forms:["keep","keeps","kept","kept","keeping"],
-patterns:{SV:null,SVO:"I keep a diary.",SVOO:null,SVOC:"I keep the door closed."}},
-
-let:{meaning:"させる",forms:["let","lets","let","let","letting"],
-patterns:{SV:null,SVO:"I let him go.",SVOO:null,SVOC:"I let him go."}},
-
-begin:{meaning:"始める",forms:["begin","begins","began","begun","beginning"],
-patterns:{SV:"It begins.",SVO:"I begin work.",SVOO:null,SVOC:null}},
-
-help:{meaning:"助ける",forms:["help","helps","helped","helped","helping"],
-patterns:{SV:null,SVO:"I help him.",SVOO:null,SVOC:"I help him study."}},
-
-show:{meaning:"見せる",forms:["show","shows","showed","shown","showing"],
-patterns:{SV:null,SVO:"I show a picture.",SVOO:"I show you a picture.",SVOC:null}},
-
-hear:{meaning:"聞く",forms:["hear","hears","heard","heard","hearing"],
-patterns:{SV:null,SVO:"I hear a sound.",SVOO:null,SVOC:"I hear him singing."}},
-
-play:{meaning:"遊ぶ / 演奏する",forms:["play","plays","played","played","playing"],
-patterns:{SV:null,SVO:"I play tennis.",SVOO:null,SVOC:null}},
-
-run:{meaning:"走る",forms:["run","runs","ran","run","running"],
-patterns:{SV:"I run.",SVO:null,SVOO:null,SVOC:null}},
-
-move:{meaning:"動く",forms:["move","moves","moved","moved","moving"],
-patterns:{SV:"I move.",SVO:"I move a chair.",SVOO:null,SVOC:"I move it closer."}}
+patterns:{SV:"I come.",SVO:null,SVOO:null,SVOC:null}}
 
 };
 
@@ -128,4 +59,75 @@ loadVerb("have");
 };
 
 function changeVerb(){
-const v = document.getElementBy
+const v = document.getElementById("verbSelect").value;
+loadVerb(v);
+}
+
+function loadVerb(v){
+const data = verbs[v];
+
+document.getElementById("title").innerText = "動詞 " + v + " 学習テンプレート";
+document.getElementById("meaning").innerHTML = "<strong>"+v+"</strong>："+data.meaning;
+document.getElementById("voice").onclick = function(){speak(v);};
+
+setRow("SV", data.patterns.SV);
+setRow("SVO", data.patterns.SVO);
+setRow("SVOO", data.patterns.SVOO);
+setRow("SVOC", data.patterns.SVOC);
+
+document.getElementById("forms").innerHTML =
+"<li>原形："+data.forms[0]+"</li>"+
+"<li>三単現："+data.forms[1]+"</li>"+
+"<li>過去形："+data.forms[2]+"</li>"+
+"<li>過去分詞："+data.forms[3]+"</li>"+
+"<li>現在分詞："+data.forms[4]+"</li>";
+}
+
+function setRow(type, sentence){
+const row = document.getElementById(type);
+if(sentence === null){
+row.children[1].innerText = "×（この文型は取らない）";
+row.children[2].innerText = "—";
+row.children[3].innerText = "—";
+}else{
+row.children[1].innerText = sentence;
+row.children[2].innerText = "";
+row.children[3].innerHTML = "<button onclick=\"speak('" + sentence + "')\">音声📢</button>";
+}
+}
+</script>
+
+</head>
+
+<body>
+
+<select id="verbSelect" onchange="changeVerb()"></select>
+
+<h1 id="title"></h1>
+
+<h2>1. 動詞情報</h2>
+<p id="meaning"></p>
+<p>音声 <button id="voice">音声📢</button></p>
+
+<h2>2. 文型（5文型）</h2>
+
+<table>
+<tr>
+<th>文型</th>
+<th>例文</th>
+<th>日本語訳</th>
+<th>音声</th>
+</tr>
+
+<tr id="SV"><td>SV</td><td></td><td class="jp"></td><td></td></tr>
+<tr id="SVO"><td>SVO</td><td></td><td class="jp"></td><td></td></tr>
+<tr id="SVOO"><td>SVOO</td><td></td><td class="jp"></td><td></td></tr>
+<tr id="SVOC"><td>SVOC</td><td></td><td class="jp"></td><td></td></tr>
+
+</table>
+
+<h2>3. 法則</h2>
+<ul id="forms"></ul>
+
+</body>
+</html>
