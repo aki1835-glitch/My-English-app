@@ -2,7 +2,8 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Verb Learning Template - have</title>
+<title>English App</title>
+
 <style>
 body{font-family:Arial,Helvetica,sans-serif;margin:40px;line-height:1.8}
 h1{color:#2c3e50}
@@ -11,6 +12,7 @@ th,td{border:1px solid #ccc;padding:10px}
 th{background:#f2f2f2}
 button{padding:6px 10px;cursor:pointer}
 .jp{color:#555}
+select{font-size:18px;margin-bottom:20px;padding:5px}
 </style>
 
 <script>
@@ -19,158 +21,111 @@ function speak(text){
     msg.lang = 'en-US';
     speechSynthesis.speak(msg);
 }
-</script>
 
-</head>
-<body>
+const verbs = {
 
-<h1>動詞 have 学習テンプレート</h1>
+have:{meaning:"持つ / 経験する",forms:["have","has","had","had","having"],
+patterns:{SV:null,SVO:"I have a car.",SVOO:null,SVOC:"I have him clean the room."}},
 
-<h2>1. 動詞情報</h2>
-<p><strong>have</strong>：持つ / 経験する</p>
-<p>音声 <button onclick="speak('have')">音声📢</button></p>
+make:{meaning:"作る",forms:["make","makes","made","made","making"],
+patterns:{SV:null,SVO:"I make a cake.",SVOO:"I make you a cake.",SVOC:"I make him happy."}},
 
-<h2>2. 文型（5文型）</h2>
+take:{meaning:"取る",forms:["take","takes","took","taken","taking"],
+patterns:{SV:null,SVO:"I take a break.",SVOO:null,SVOC:null}},
 
-<table>
-<tr>
-<th>文型</th>
-<th>例文</th>
-<th>日本語訳</th>
-<th>音声</th>
-</tr>
+get:{meaning:"得る / なる",forms:["get","gets","got","gotten","getting"],
+patterns:{SV:null,SVO:"I get a ticket.",SVOO:null,SVOC:"I get him ready."}},
 
-<tr>
-<td>SV</td>
-<td>×（この文型は基本的に使わない）</td>
-<td class="jp">—</td>
-<td>—</td>
-</tr>
+do:{meaning:"する",forms:["do","does","did","done","doing"],
+patterns:{SV:null,SVO:"I do my homework.",SVOO:null,SVOC:null}},
 
-<tr>
-<td>SVO</td>
-<td>I have a car.</td>
-<td class="jp">私は車を持っている</td>
-<td><button onclick="speak('I have a car')">音声📢</button></td>
-</tr>
+go:{meaning:"行く",forms:["go","goes","went","gone","going"],
+patterns:{SV:"I go.",SVO:null,SVOO:null,SVOC:null}},
 
-<tr>
-<td>SVOO</td>
-<td>×（この文型は取らない）</td>
-<td class="jp">—</td>
-<td>—</td>
-</tr>
+come:{meaning:"来る",forms:["come","comes","came","come","coming"],
+patterns:{SV:"I come.",SVO:null,SVOO:null,SVOC:null}},
 
-<tr>
-<td>SVOC</td>
-<td>I have him clean the room.</td>
-<td class="jp">私は彼に部屋を掃除させる</td>
-<td><button onclick="speak('I have him clean the room')">音声📢</button></td>
-</tr>
+see:{meaning:"見る",forms:["see","sees","saw","seen","seeing"],
+patterns:{SV:null,SVO:"I see a dog.",SVOO:null,SVOC:"I see him running."}},
 
-</table>
+know:{meaning:"知る",forms:["know","knows","knew","known","knowing"],
+patterns:{SV:null,SVO:"I know him.",SVOO:null,SVOC:null}},
 
-<h2>3. 法則</h2>
-<ul>
-<li>原形：have</li>
-<li>三人称単数現在：has</li>
-<li>過去形：had</li>
-<li>過去分詞：had</li>
-<li>現在分詞：having</li>
-</ul>
+think:{meaning:"考える",forms:["think","thinks","thought","thought","thinking"],
+patterns:{SV:null,SVO:"I think that he is right.",SVOO:null,SVOC:"I think him smart."}},
 
-<h2>4. 例外</h2>
-<ul>
-<li>"have got" = 持っている（口語）</li>
-<li>完了形で非常に重要（have + 過去分詞）</li>
-</ul>
+give:{meaning:"与える",forms:["give","gives","gave","given","giving"],
+patterns:{SV:null,SVO:"I give a gift.",SVOO:"I give you a gift.",SVOC:null}},
 
-<h2>5. 発音（全時制）</h2>
+use:{meaning:"使う",forms:["use","uses","used","used","using"],
+patterns:{SV:null,SVO:"I use a computer.",SVOO:null,SVOC:null}},
 
-<table>
-<tr><th>形</th><th>語形</th><th>音声</th></tr>
-<tr><td>原形</td><td>have</td><td><button onclick="speak('have')">音声📢</button></td></tr>
-<tr><td>三単現</td><td>has</td><td><button onclick="speak('has')">音声📢</button></td></tr>
-<tr><td>過去形</td><td>had</td><td><button onclick="speak('had')">音声📢</button></td></tr>
-<tr><td>過去分詞</td><td>had</td><td><button onclick="speak('had')">音声📢</button></td></tr>
-<tr><td>現在分詞</td><td>having</td><td><button onclick="speak('having')">音声📢</button></td></tr>
-</table>
+find:{meaning:"見つける",forms:["find","finds","found","found","finding"],
+patterns:{SV:null,SVO:"I find a key.",SVOO:null,SVOC:"I find this easy."}},
 
-<h2>6. アウトプット練習（全文型）</h2>
+tell:{meaning:"伝える",forms:["tell","tells","told","told","telling"],
+patterns:{SV:null,SVO:"I tell the story.",SVOO:"I tell you a story.",SVOC:null}},
 
-<table>
-<tr>
-<th>文型</th>
-<th>例文</th>
-<th>日本語訳</th>
-<th>音声</th>
-</tr>
+try:{meaning:"試す",forms:["try","tries","tried","tried","trying"],
+patterns:{SV:null,SVO:"I try it.",SVOO:null,SVOC:null}},
 
-<tr>
-<td>SVO</td>
-<td>
-I have a car.<br>
-She has a dog.<br>
-We have many books.
-</td>
-<td class="jp">
-私は車を持っている<br>
-彼女は犬を持っている<br>
-私たちは多くの本を持っている
-</td>
-<td>
-<button onclick="speak('I have a car')">音声📢</button>
-<button onclick="speak('She has a dog')">音声📢</button>
-<button onclick="speak('We have many books')">音声📢</button>
-</td>
-</tr>
+ask:{meaning:"尋ねる",forms:["ask","asks","asked","asked","asking"],
+patterns:{SV:null,SVO:"I ask a question.",SVOO:"I ask you a question.",SVOC:null}},
 
-<tr>
-<td>SVOO</td>
-<td>×（この文型は取らない）</td>
-<td class="jp">—</td>
-<td>—</td>
-</tr>
+need:{meaning:"必要とする",forms:["need","needs","needed","needed","needing"],
+patterns:{SV:null,SVO:"I need help.",SVOO:null,SVOC:"I need him ready."}},
 
-<tr>
-<td>SVOC</td>
-<td>
-I have him clean the room.<br>
-She has the children do their homework.<br>
-They have the employees work overtime.
-</td>
-<td class="jp">
-私は彼に部屋を掃除させる<br>
-彼女は子供たちに宿題をさせる<br>
-彼らは従業員に残業させる
-</td>
-<td>
-<button onclick="speak('I have him clean the room')">音声📢</button>
-<button onclick="speak('She has the children do their homework')">音声📢</button>
-<button onclick="speak('They have the employees work overtime')">音声📢</button>
-</td>
-</tr>
+feel:{meaning:"感じる",forms:["feel","feels","felt","felt","feeling"],
+patterns:{SV:null,SVO:"I feel pain.",SVOO:null,SVOC:"I feel happy."}},
 
-<tr>
-<td>応用</td>
-<td>
-I have finished my work.<br>
-I have been studying English for years.<br>
-Have you ever had sushi?
-</td>
-<td class="jp">
-私は仕事を終えた<br>
-私は何年も英語を勉強している<br>
-寿司を食べたことがありますか
-</td>
-<td>
-<button onclick="speak('I have finished my work')">音声📢</button>
-<button onclick="speak('I have been studying English for years')">音声📢</button>
-<button onclick="speak('Have you ever had sushi')">音声📢</button>
-</td>
-</tr>
+become:{meaning:"なる",forms:["become","becomes","became","become","becoming"],
+patterns:{SV:null,SVO:null,SVOO:null,SVOC:"I become a teacher."}},
 
-</table>
+leave:{meaning:"去る / 残す",forms:["leave","leaves","left","left","leaving"],
+patterns:{SV:null,SVO:"I leave the room.",SVOO:null,SVOC:"I leave the door open."}},
 
-</body>
-</html>
+put:{meaning:"置く",forms:["put","puts","put","put","putting"],
+patterns:{SV:null,SVO:"I put the book.",SVOO:null,SVOC:"I put the book on the table."}},
+
+keep:{meaning:"保つ",forms:["keep","keeps","kept","kept","keeping"],
+patterns:{SV:null,SVO:"I keep a diary.",SVOO:null,SVOC:"I keep the door closed."}},
+
+let:{meaning:"させる",forms:["let","lets","let","let","letting"],
+patterns:{SV:null,SVO:"I let him go.",SVOO:null,SVOC:"I let him go."}},
+
+begin:{meaning:"始める",forms:["begin","begins","began","begun","beginning"],
+patterns:{SV:"It begins.",SVO:"I begin work.",SVOO:null,SVOC:null}},
+
+help:{meaning:"助ける",forms:["help","helps","helped","helped","helping"],
+patterns:{SV:null,SVO:"I help him.",SVOO:null,SVOC:"I help him study."}},
+
+show:{meaning:"見せる",forms:["show","shows","showed","shown","showing"],
+patterns:{SV:null,SVO:"I show a picture.",SVOO:"I show you a picture.",SVOC:null}},
+
+hear:{meaning:"聞く",forms:["hear","hears","heard","heard","hearing"],
+patterns:{SV:null,SVO:"I hear a sound.",SVOO:null,SVOC:"I hear him singing."}},
+
+play:{meaning:"遊ぶ / 演奏する",forms:["play","plays","played","played","playing"],
+patterns:{SV:null,SVO:"I play tennis.",SVOO:null,SVOC:null}},
+
+run:{meaning:"走る",forms:["run","runs","ran","run","running"],
+patterns:{SV:"I run.",SVO:null,SVOO:null,SVOC:null}},
+
+move:{meaning:"動く",forms:["move","moves","moved","moved","moving"],
+patterns:{SV:"I move.",SVO:"I move a chair.",SVOO:null,SVOC:"I move it closer."}}
+
+};
+
+window.onload = function(){
+const select = document.getElementById("verbSelect");
+Object.keys(verbs).forEach(v=>{
+  const option = document.createElement("option");
+  option.value = v;
+  option.textContent = v;
+  select.appendChild(option);
+});
+loadVerb("have");
+};
+
+function changeVerb(){
+const v = document.getElementBy
