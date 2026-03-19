@@ -1,0 +1,792 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>英語動詞 学習テンプレート</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=Noto+Sans+JP:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #22263a;
+    --accent: #5b8dee;
+    --accent2: #e8a87c;
+    --text: #e8eaf0;
+    --muted: #7a7f99;
+    --border: #2e3248;
+    --good: #4caf7d;
+    --bad: #e05f5f;
+    --radius: 10px;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', 'Noto Sans JP', sans-serif;
+    font-weight: 300;
+    min-height: 100vh;
+    padding: 0 0 60px;
+  }
+
+  /* ── Header ── */
+  .header {
+    background: linear-gradient(135deg, #1a1d27 0%, #0f1117 100%);
+    border-bottom: 1px solid var(--border);
+    padding: 28px 24px 20px;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .header-inner {
+    max-width: 860px;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 1.35rem;
+    color: var(--accent);
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+  }
+  .logo em { font-style: italic; color: var(--accent2); }
+
+  .verb-select-wrap { position: relative; }
+  .verb-select-wrap::after {
+    content: '▾';
+    position: absolute;
+    right: 12px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--muted);
+    pointer-events: none;
+    font-size: 0.8rem;
+  }
+  #verbSelect {
+    appearance: none;
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 9px 36px 9px 14px;
+    cursor: pointer;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  #verbSelect:focus { border-color: var(--accent); }
+
+  /* ── Progress bar ── */
+  .progress-bar-wrap {
+    background: var(--surface2);
+    border-radius: 99px;
+    height: 6px;
+    flex: 1;
+    min-width: 80px;
+    overflow: hidden;
+  }
+  .progress-bar {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    border-radius: 99px;
+    transition: width 0.5s ease;
+    width: 0%;
+  }
+  .progress-label { font-size: 0.7rem; color: var(--muted); white-space: nowrap; }
+
+  /* ── Main ── */
+  .main { max-width: 860px; margin: 0 auto; padding: 32px 20px 0; }
+
+  /* ── Section ── */
+  .section {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    margin-bottom: 20px;
+    overflow: hidden;
+    animation: fadeUp 0.4s ease both;
+  }
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(12px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .section-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 14px 20px;
+    border-bottom: 1px solid var(--border);
+    background: var(--surface2);
+  }
+  .section-num {
+    width: 24px; height: 24px;
+    background: var(--accent);
+    border-radius: 50%;
+    font-size: 0.72rem;
+    font-weight: 500;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+    color: #fff;
+  }
+  .section-title { font-size: 0.82rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+  .section-body { padding: 20px; }
+
+  /* ── Verb info ── */
+  .verb-hero {
+    display: flex; align-items: center; gap: 16px; flex-wrap: wrap;
+  }
+  .verb-word {
+    font-family: 'DM Serif Display', serif;
+    font-size: 3rem;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .verb-meaning { color: var(--muted); font-size: 0.9rem; margin-top: 4px; }
+  .speak-btn {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--text);
+    cursor: pointer;
+    font-size: 1rem;
+    padding: 8px 12px;
+    transition: background 0.2s, transform 0.15s;
+    display: flex; align-items: center; gap: 6px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+  }
+  .speak-btn:hover { background: var(--accent); border-color: var(--accent); transform: scale(1.04); }
+  .speak-btn:active { transform: scale(0.97); }
+
+  /* ── Forms chips ── */
+  .forms-grid {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-top: 8px;
+  }
+  .form-chip {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 14px;
+    display: flex; flex-direction: column; gap: 2px;
+    cursor: pointer;
+    transition: border-color 0.2s, background 0.2s;
+  }
+  .form-chip:hover { border-color: var(--accent); background: #1e2235; }
+  .form-chip-label { font-size: 0.62rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; }
+  .form-chip-val { font-family: 'DM Serif Display', serif; font-style: italic; font-size: 1.1rem; color: var(--accent2); }
+
+  /* ── Sentence patterns table ── */
+  .patterns-table { width: 100%; border-collapse: collapse; }
+  .patterns-table th {
+    text-align: left; font-size: 0.68rem; font-weight: 500;
+    letter-spacing: 0.12em; text-transform: uppercase;
+    color: var(--muted); padding: 8px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+  .patterns-table td { padding: 12px; border-bottom: 1px solid var(--border); vertical-align: middle; font-size: 0.88rem; }
+  .patterns-table tr:last-child td { border-bottom: none; }
+  .patterns-table tr:hover td { background: var(--surface2); }
+  .badge {
+    display: inline-block;
+    padding: 3px 9px;
+    border-radius: 6px;
+    font-size: 0.72rem;
+    font-weight: 500;
+    font-family: 'DM Sans', monospace;
+    letter-spacing: 0.05em;
+  }
+  .badge-yes { background: rgba(91,141,238,0.15); color: var(--accent); border: 1px solid rgba(91,141,238,0.3); }
+  .badge-no  { background: rgba(224,95,95,0.1);  color: var(--bad);    border: 1px solid rgba(224,95,95,0.2);  }
+  .jp-text { color: var(--muted); font-size: 0.82rem; margin-top: 3px; }
+
+  /* ── Exceptions ── */
+  .exception-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .exception-list li {
+    background: rgba(232,168,124,0.08);
+    border-left: 3px solid var(--accent2);
+    border-radius: 0 8px 8px 0;
+    padding: 9px 14px;
+    font-size: 0.85rem;
+    color: var(--accent2);
+  }
+  .no-exception { color: var(--muted); font-size: 0.85rem; font-style: italic; }
+
+  /* ── Output practice ── */
+  .output-group { margin-bottom: 24px; }
+  .output-group:last-child { margin-bottom: 0; }
+  .output-group-label {
+    font-size: 0.68rem; letter-spacing: 0.15em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 10px; display: flex; align-items: center; gap: 8px;
+  }
+  .output-group-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  .sentence-row {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .sentence-row:last-child { border-bottom: none; }
+  .sentence-texts { flex: 1; }
+  .sentence-en { font-size: 0.92rem; color: var(--text); }
+  .sentence-jp { font-size: 0.78rem; color: var(--muted); margin-top: 3px; }
+
+  /* ── Quiz ── */
+  .quiz-wrap { }
+  .quiz-question {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    margin-bottom: 14px;
+  }
+  .quiz-q-label { font-size: 0.68rem; color: var(--muted); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 8px; }
+  .quiz-q-text { font-size: 1rem; color: var(--text); line-height: 1.6; }
+  .quiz-q-text .blank {
+    display: inline-block;
+    min-width: 80px;
+    border-bottom: 2px solid var(--accent);
+    margin: 0 4px;
+    color: transparent;
+    user-select: none;
+  }
+  .quiz-q-text .blank.revealed { color: var(--accent2); border-color: var(--accent2); }
+  .quiz-jp { font-size: 0.8rem; color: var(--muted); margin-top: 6px; }
+
+  .quiz-options { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 14px; }
+  .quiz-opt {
+    background: var(--surface2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 8px 18px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    color: var(--text);
+    cursor: pointer;
+    transition: background 0.18s, border-color 0.18s, transform 0.1s;
+  }
+  .quiz-opt:hover:not(:disabled) { border-color: var(--accent); background: #1e2235; transform: translateY(-1px); }
+  .quiz-opt:disabled { cursor: default; opacity: 0.7; }
+  .quiz-opt.correct { background: rgba(76,175,125,0.15); border-color: var(--good); color: var(--good); }
+  .quiz-opt.wrong   { background: rgba(224,95,95,0.12);  border-color: var(--bad);  color: var(--bad);  }
+
+  .quiz-feedback {
+    font-size: 0.82rem; padding: 8px 14px; border-radius: 8px;
+    margin-bottom: 12px; display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok  { background: rgba(76,175,125,0.1);  color: var(--good); border: 1px solid rgba(76,175,125,0.2); }
+  .quiz-feedback.ng  { background: rgba(224,95,95,0.08);  color: var(--bad);  border: 1px solid rgba(224,95,95,0.2);  }
+
+  .quiz-controls { display: flex; gap: 10px; flex-wrap: wrap; }
+  .btn-primary {
+    background: var(--accent); border: none; border-radius: 8px;
+    color: #fff; cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; font-weight: 500; padding: 9px 20px;
+    transition: opacity 0.2s, transform 0.15s;
+  }
+  .btn-primary:hover { opacity: 0.88; transform: translateY(-1px); }
+  .btn-secondary {
+    background: transparent; border: 1px solid var(--border); border-radius: 8px;
+    color: var(--muted); cursor: pointer; font-family: 'DM Sans', sans-serif;
+    font-size: 0.82rem; padding: 9px 20px;
+    transition: border-color 0.2s, color 0.2s;
+  }
+  .btn-secondary:hover { border-color: var(--accent); color: var(--accent); }
+
+  /* ── Score ── */
+  .score-display {
+    display: flex; align-items: center; gap: 8px;
+    font-size: 0.78rem; color: var(--muted); margin-left: auto;
+  }
+  .score-num { font-family: 'DM Serif Display', serif; font-size: 1.1rem; color: var(--accent2); }
+
+  /* ── Responsive ── */
+  @media (max-width: 580px) {
+    .verb-word { font-size: 2.2rem; }
+    .patterns-table th:nth-child(3),
+    .patterns-table td:nth-child(3) { display: none; }
+    .section-body { padding: 14px; }
+  }
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="header-inner">
+    <div class="logo">Verb<em>Lab</em></div>
+    <div class="verb-select-wrap">
+      <select id="verbSelect"></select>
+    </div>
+    <div class="progress-bar-wrap" title="クイズ正答率">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+    <div class="progress-label" id="progressLabel">Quiz: 0/0</div>
+  </div>
+</header>
+
+<main class="main">
+
+  <!-- 1. 動詞情報 -->
+  <div class="section" style="animation-delay:0.05s">
+    <div class="section-header">
+      <div class="section-num">1</div>
+      <div class="section-title">動詞情報</div>
+    </div>
+    <div class="section-body">
+      <div class="verb-hero">
+        <div>
+          <div class="verb-word" id="verbWord"></div>
+          <div class="verb-meaning" id="verbMeaning"></div>
+        </div>
+        <button class="speak-btn" id="speakWordBtn">🔊 発音を聞く</button>
+      </div>
+      <div class="forms-grid" id="formsGrid"></div>
+    </div>
+  </div>
+
+  <!-- 2. 文型 -->
+  <div class="section" style="animation-delay:0.1s">
+    <div class="section-header">
+      <div class="section-num">2</div>
+      <div class="section-title">5文型</div>
+    </div>
+    <div class="section-body" style="padding:0">
+      <table class="patterns-table">
+        <thead>
+          <tr>
+            <th>文型</th>
+            <th>例文</th>
+            <th>音声</th>
+          </tr>
+        </thead>
+        <tbody id="patternsBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- 3. 活用形 -->
+  <div class="section" style="animation-delay:0.15s">
+    <div class="section-header">
+      <div class="section-num">3</div>
+      <div class="section-title">例外・注意点</div>
+    </div>
+    <div class="section-body">
+      <ul class="exception-list" id="exceptionList"></ul>
+    </div>
+  </div>
+
+  <!-- 4. アウトプット練習 -->
+  <div class="section" style="animation-delay:0.2s">
+    <div class="section-header">
+      <div class="section-num">4</div>
+      <div class="section-title">アウトプット練習</div>
+    </div>
+    <div class="section-body" id="outputBody"></div>
+  </div>
+
+  <!-- 5. クイズ -->
+  <div class="section" style="animation-delay:0.25s">
+    <div class="section-header">
+      <div class="section-num">5</div>
+      <div class="section-title">クイズ</div>
+      <div class="score-display" id="scoreDisplay">
+        <span>正解</span><span class="score-num" id="scoreNum">0</span>
+        <span>/</span><span id="scoreDen">0</span>
+      </div>
+    </div>
+    <div class="section-body quiz-wrap">
+      <div class="quiz-question">
+        <div class="quiz-q-label">空欄に入る動詞の形を選んでください</div>
+        <div class="quiz-q-text" id="quizText"></div>
+        <div class="quiz-jp" id="quizJp"></div>
+      </div>
+      <div class="quiz-options" id="quizOptions"></div>
+      <div class="quiz-feedback" id="quizFeedback"></div>
+      <div class="quiz-controls">
+        <button class="btn-primary" id="nextQuizBtn">次の問題 →</button>
+        <button class="btn-secondary" id="resetQuizBtn">リセット</button>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+// ─────────────────────────────────────────────
+// DATA
+// ─────────────────────────────────────────────
+const VERBS = {
+  have: {
+    meaning: "持つ / 経験する",
+    forms: {
+      "原形":       "have",
+      "三単現":     "has",
+      "過去形":     "had",
+      "過去分詞":   "had",
+      "現在分詞":   "having"
+    },
+    patterns: {
+      SV:   null,
+      SVO:  { en: "I have a car.", jp: "私は車を持っている。" },
+      SVOO: null,
+      SVOC: { en: "I have him clean the room.", jp: "私は彼に部屋を掃除させる。" }
+    },
+    exceptions: [
+      '"have got" = 持っている（口語・英国英語でよく使われる）',
+      "完了形で重要：have + 過去分詞 → 経験・完了・継続・結果を表す",
+      "使役動詞として：have + O + 動詞原形 = Oに〜させる"
+    ],
+    output: {
+      "SVO": [
+        { en: "I have a car.", jp: "私は車を持っている。" },
+        { en: "She has a dog.", jp: "彼女は犬を持っている。" },
+        { en: "We have many books.", jp: "私たちは多くの本を持っている。" }
+      ],
+      "SVOC": [
+        { en: "I have him clean the room.", jp: "私は彼に部屋を掃除させる。" },
+        { en: "She has the children do their homework.", jp: "彼女は子供たちに宿題をさせる。" },
+        { en: "They have the employees work overtime.", jp: "彼らは従業員に残業させる。" }
+      ],
+      "応用（完了形）": [
+        { en: "I have finished my work.", jp: "私は仕事を終えた。" },
+        { en: "I have been studying English for years.", jp: "私は何年も英語を勉強している。" },
+        { en: "Have you ever had sushi?", jp: "寿司を食べたことがありますか？" }
+      ]
+    }
+  },
+
+  make: {
+    meaning: "作る / 〜にする",
+    forms: {
+      "原形":       "make",
+      "三単現":     "makes",
+      "過去形":     "made",
+      "過去分詞":   "made",
+      "現在分詞":   "making"
+    },
+    patterns: {
+      SV:   null,
+      SVO:  { en: "I make a cake.", jp: "私はケーキを作る。" },
+      SVOO: { en: "I make you a cake.", jp: "あなたにケーキを作る。" },
+      SVOC: { en: "I make him happy.", jp: "彼を幸せにする。" }
+    },
+    exceptions: [
+      "使役動詞として：make + O + 動詞原形 = Oに強制的に〜させる",
+      "make + O + 形容詞 = Oを〜な状態にする（SVOC）",
+      '"make it" = うまくやる・間に合う（慣用句）'
+    ],
+    output: {
+      "SVO": [
+        { en: "I make a cake.", jp: "私はケーキを作る。" },
+        { en: "She makes dinner every day.", jp: "彼女は毎日夕食を作る。" },
+        { en: "We make plans together.", jp: "私たちは一緒に計画を立てる。" }
+      ],
+      "SVOO": [
+        { en: "I make you a cake.", jp: "私はあなたにケーキを作る。" },
+        { en: "He makes her coffee every morning.", jp: "彼は毎朝彼女にコーヒーを作る。" },
+        { en: "She made me a sandwich.", jp: "彼女は私にサンドイッチを作ってくれた。" }
+      ],
+      "SVOC": [
+        { en: "I make him happy.", jp: "私は彼を幸せにする。" },
+        { en: "The news made her sad.", jp: "そのニュースは彼女を悲しくさせた。" },
+        { en: "Hard work makes you stronger.", jp: "努力はあなたを強くする。" }
+      ]
+    }
+  }
+};
+
+// ─────────────────────────────────────────────
+// STATE
+// ─────────────────────────────────────────────
+let currentVerb = "have";
+let quizScore = 0;
+let quizTotal = 0;
+let quizAnswered = false;
+let quizPool = [];
+let quizIndex = 0;
+
+// ─────────────────────────────────────────────
+// SPEECH
+// ─────────────────────────────────────────────
+function speak(text, lang = "en-US") {
+  if (!window.speechSynthesis) return;
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = lang;
+  u.rate = 0.9;
+  window.speechSynthesis.speak(u);
+}
+
+// ─────────────────────────────────────────────
+// INIT SELECT
+// ─────────────────────────────────────────────
+function initSelect() {
+  const sel = document.getElementById("verbSelect");
+  Object.keys(VERBS).forEach(v => {
+    const opt = document.createElement("option");
+    opt.value = v;
+    opt.textContent = v;
+    sel.appendChild(opt);
+  });
+  sel.addEventListener("change", () => {
+    currentVerb = sel.value;
+    loadVerb(currentVerb);
+    buildQuizPool();
+    loadQuiz();
+  });
+}
+
+// ─────────────────────────────────────────────
+// LOAD VERB
+// ─────────────────────────────────────────────
+function loadVerb(name) {
+  const d = VERBS[name];
+
+  // 1. Info
+  document.getElementById("verbWord").textContent = name;
+  document.getElementById("verbMeaning").textContent = d.meaning;
+
+  document.getElementById("speakWordBtn").onclick = () => speak(name);
+
+  // 2. Forms chips
+  const formsGrid = document.getElementById("formsGrid");
+  formsGrid.innerHTML = "";
+  Object.entries(d.forms).forEach(([label, val]) => {
+    const chip = document.createElement("div");
+    chip.className = "form-chip";
+    chip.title = "クリックで発音";
+    chip.innerHTML = `<span class="form-chip-label">${escHtml(label)}</span><span class="form-chip-val">${escHtml(val)}</span>`;
+    chip.addEventListener("click", () => speak(val));
+    formsGrid.appendChild(chip);
+  });
+
+  // 3. Patterns
+  const tbody = document.getElementById("patternsBody");
+  tbody.innerHTML = "";
+  const patternOrder = ["SV", "SVO", "SVOO", "SVOC"];
+  patternOrder.forEach(pat => {
+    const data = d.patterns[pat];
+    const tr = document.createElement("tr");
+    if (data) {
+      tr.innerHTML = `
+        <td><span class="badge badge-yes">${escHtml(pat)}</span></td>
+        <td>
+          <div>${escHtml(data.en)}</div>
+          <div class="jp-text">${escHtml(data.jp)}</div>
+        </td>
+        <td><button class="speak-btn" style="font-size:0.75rem;padding:5px 10px">🔊</button></td>
+      `;
+      tr.querySelector(".speak-btn").addEventListener("click", () => speak(data.en));
+    } else {
+      tr.innerHTML = `
+        <td><span class="badge badge-no">${escHtml(pat)}</span></td>
+        <td colspan="2" style="color:var(--muted);font-size:0.82rem;font-style:italic">この文型は取らない</td>
+      `;
+    }
+    tbody.appendChild(tr);
+  });
+
+  // 4. Exceptions
+  const exList = document.getElementById("exceptionList");
+  exList.innerHTML = "";
+  if (d.exceptions && d.exceptions.length) {
+    d.exceptions.forEach(e => {
+      const li = document.createElement("li");
+      li.textContent = e;
+      exList.appendChild(li);
+    });
+  } else {
+    const li = document.createElement("li");
+    li.className = "no-exception";
+    li.textContent = "特記事項なし";
+    exList.appendChild(li);
+  }
+
+  // 5. Output
+  const outBody = document.getElementById("outputBody");
+  outBody.innerHTML = "";
+  Object.entries(d.output).forEach(([groupLabel, sentences]) => {
+    const group = document.createElement("div");
+    group.className = "output-group";
+    group.innerHTML = `<div class="output-group-label">${escHtml(groupLabel)}</div>`;
+    sentences.forEach(s => {
+      const row = document.createElement("div");
+      row.className = "sentence-row";
+      row.innerHTML = `
+        <div class="sentence-texts">
+          <div class="sentence-en">${escHtml(s.en)}</div>
+          <div class="sentence-jp">${escHtml(s.jp)}</div>
+        </div>
+        <button class="speak-btn" style="font-size:0.75rem;padding:5px 10px;flex-shrink:0">🔊</button>
+      `;
+      row.querySelector(".speak-btn").addEventListener("click", () => speak(s.en));
+      group.appendChild(row);
+    });
+    outBody.appendChild(group);
+  });
+}
+
+// ─────────────────────────────────────────────
+// QUIZ
+// ─────────────────────────────────────────────
+function buildQuizPool() {
+  const d = VERBS[currentVerb];
+  quizPool = [];
+
+  // Collect all output sentences as quiz items
+  Object.values(d.output).forEach(sentences => {
+    sentences.forEach(s => {
+      // Build a question by blanking out the verb form
+      const forms = Object.values(d.forms);
+      const verbName = currentVerb;
+
+      // Find which form appears in the sentence
+      let matched = null;
+      for (const f of forms) {
+        const re = new RegExp("\\b" + escRegex(f) + "\\b", "i");
+        if (re.test(s.en)) { matched = f; break; }
+      }
+      if (!matched) return;
+
+      // Distractors from other forms (unique, excluding matched)
+      const distractors = [...new Set(forms.filter(f => f !== matched))].slice(0, 3);
+      const options = shuffle([matched, ...distractors]);
+
+      const blanked = s.en.replace(
+        new RegExp("\\b" + escRegex(matched) + "\\b", "i"),
+        "___"
+      );
+
+      quizPool.push({ blanked, jp: s.jp, answer: matched, options });
+    });
+  });
+
+  quizPool = shuffle(quizPool);
+  quizIndex = 0;
+}
+
+function loadQuiz() {
+  quizAnswered = false;
+  const feedback = document.getElementById("quizFeedback");
+  feedback.className = "quiz-feedback";
+  feedback.textContent = "";
+
+  if (!quizPool.length) {
+    document.getElementById("quizText").textContent = "クイズデータがありません。";
+    document.getElementById("quizOptions").innerHTML = "";
+    return;
+  }
+
+  const q = quizPool[quizIndex % quizPool.length];
+  document.getElementById("quizText").innerHTML =
+    q.blanked.replace("___", `<span class="blank" id="blankSpan">${q.answer}</span>`);
+  document.getElementById("blankSpan").style.color = "transparent";
+  document.getElementById("quizJp").textContent = q.jp;
+
+  const optsEl = document.getElementById("quizOptions");
+  optsEl.innerHTML = "";
+  q.options.forEach(opt => {
+    const btn = document.createElement("button");
+    btn.className = "quiz-opt";
+    btn.textContent = opt;
+    btn.addEventListener("click", () => handleAnswer(opt, q.answer, q.options));
+    optsEl.appendChild(btn);
+  });
+}
+
+function handleAnswer(chosen, correct, allOpts) {
+  if (quizAnswered) return;
+  quizAnswered = true;
+  quizTotal++;
+
+  const isCorrect = chosen === correct;
+  if (isCorrect) quizScore++;
+
+  // Style options
+  document.querySelectorAll(".quiz-opt").forEach(btn => {
+    btn.disabled = true;
+    if (btn.textContent === correct) btn.classList.add("correct");
+    else if (btn.textContent === chosen && !isCorrect) btn.classList.add("wrong");
+  });
+
+  // Reveal blank
+  const blank = document.getElementById("blankSpan");
+  if (blank) {
+    blank.style.color = "";
+    blank.classList.add("revealed");
+  }
+
+  // Feedback
+  const fb = document.getElementById("quizFeedback");
+  fb.textContent = isCorrect ? "✓ 正解！" : `✗ 不正解。正解は「${correct}」です。`;
+  fb.className = "quiz-feedback show " + (isCorrect ? "ok" : "ng");
+
+  updateScore();
+}
+
+function updateScore() {
+  document.getElementById("scoreNum").textContent = quizScore;
+  document.getElementById("scoreDen").textContent = quizTotal;
+  const pct = quizTotal ? (quizScore / quizTotal) * 100 : 0;
+  document.getElementById("progressBar").style.width = pct + "%";
+  document.getElementById("progressLabel").textContent =
+    `Quiz: ${quizScore}/${quizTotal}`;
+}
+
+// ─────────────────────────────────────────────
+// UTILS
+// ─────────────────────────────────────────────
+function escHtml(str) {
+  return str
+    .replace(/&/g, "&amp;")
+    .replace(/</g, "&lt;")
+    .replace(/>/g, "&gt;")
+    .replace(/"/g, "&quot;");
+}
+
+function escRegex(str) {
+  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+}
+
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
+
+// ─────────────────────────────────────────────
+// BOOT
+// ─────────────────────────────────────────────
+window.addEventListener("DOMContentLoaded", () => {
+  initSelect();
+  loadVerb(currentVerb);
+  buildQuizPool();
+  loadQuiz();
+
+  document.getElementById("nextQuizBtn").addEventListener("click", () => {
+    quizIndex = (quizIndex + 1) % quizPool.length;
+    loadQuiz();
+  });
+
+  document.getElementById("resetQuizBtn").addEventListener("click", () => {
+    quizScore = 0;
+    quizTotal = 0;
+    quizIndex = 0;
+    quizPool = shuffle(quizPool);
+    updateScore();
+    loadQuiz();
+  });
+});
+</script>
+</body>
+</html>
