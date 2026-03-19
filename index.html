@@ -2,8 +2,7 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>Verb Learning App</title>
-
+<title>Verb Learning Template - have</title>
 <style>
 body{font-family:Arial,Helvetica,sans-serif;margin:40px;line-height:1.8}
 h1{color:#2c3e50}
@@ -12,151 +11,179 @@ th,td{border:1px solid #ccc;padding:10px}
 th{background:#f2f2f2}
 button{padding:6px 10px;cursor:pointer}
 .jp{color:#555}
-select{font-size:18px;margin-bottom:20px;padding:5px}
 </style>
-</head>
 
+<script>
+function speak(text){
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'en-US';
+    speechSynthesis.speak(msg);
+}
+</script>
+
+</head>
 <body>
 
-<select id="verbSelect"></select>
-
-<h1 id="title"></h1>
+<h1>動詞 have 学習テンプレート</h1>
 
 <h2>1. 動詞情報</h2>
-<p><strong id="word"></strong>：<span id="meaning"></span></p>
-<p>音声 <button id="voiceWord">音声📢</button></p>
+<p><strong>have</strong>：持つ</p>
+<p>音声 <button onclick="speak('have')">音声📢</button></p>
 
 <h2>2. 文型（5文型）</h2>
 
 <table>
-<tr><th>文型</th><th>例文</th><th>日本語訳</th><th>音声</th></tr>
+<tr>
+<th>文型</th>
+<th>例文</th>
+<th>日本語訳</th>
+<th>音声</th>
+</tr>
 
-<tr id="SV"><td>SV</td><td></td><td class="jp"></td><td></td></tr>
-<tr id="SVO"><td>SVO</td><td></td><td class="jp"></td><td></td></tr>
-<tr id="SVOO"><td>SVOO</td><td></td><td class="jp"></td><td></td></tr>
-<tr id="SVOC"><td>SVOC</td><td></td><td class="jp"></td><td></td></tr>
+<tr>
+<td>SV</td>
+<td>I have.
+You have.
+They have.</td>
+<td class="jp">私は持っている
+あなたは持っている
+彼らは持っている</td>
+<td><button onclick="speak('I have')">音声📢</button>
+<button onclick="speak('You have')">音声📢</button>
+<button onclick="speak('They have')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVO</td>
+<td>I have a car.
+She has a dog.
+We have many books.</td>
+<td class="jp">私は車を持っている
+彼女は犬を持っている
+私たちは多くの本を持っている</td>
+<td><button onclick="speak('I have a car')">音声📢</button>
+<button onclick="speak('She has a dog')">音声📢</button>
+<button onclick="speak('We have many books')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVOO</td>
+<td>×（この文型は取らない）</td>
+<td class="jp">—</td>
+<td>—</td>
+</tr>
+
+<tr>
+<td>SVOC</td>
+<td>I have him clean the room.
+She has the children do their homework.
+They have the employees work overtime.</td>
+<td class="jp">私は彼に部屋を掃除させる
+彼女は子供たちに宿題をさせる
+彼らは従業員に残業させる</td>
+<td><button onclick="speak('I have him clean the room')">音声📢</button>
+<button onclick="speak('She has the children do their homework')">音声📢</button>
+<button onclick="speak('They have the employees work overtime')">音声📢</button></td>
+</tr>
 
 </table>
 
 <h2>3. 法則</h2>
 <ul>
-<li>原形：<span id="f1"></span></li>
-<li>三人称単数現在：<span id="f2"></span></li>
-<li>過去形：<span id="f3"></span></li>
-<li>過去分詞：<span id="f4"></span></li>
-<li>現在分詞：<span id="f5"></span></li>
+<li>原形：have</li>
+<li>三人称単数現在：has</li>
+<li>過去形：had</li>
+<li>過去分詞：had</li>
+<li>現在分詞：having</li>
 </ul>
+
+<h2>4. 例外</h2>
+<ul>
+<li>"have got" の用法</li>
+<li>不規則変化形: "have" → "has"</li>
+</ul>
+
+<h2>5. 発音（全時制）</h2>
+
+<table>
+<tr><th>形</th><th>語形</th><th>音声</th></tr>
+<tr><td>原形</td><td>have</td><td><button onclick="speak('have')">音声📢</button></td></tr>
+<tr><td>三単現</td><td>has</td><td><button onclick="speak('has')">音声📢</button></td></tr>
+<tr><td>過去形</td><td>had</td><td><button onclick="speak('had')">音声📢</button></td></tr>
+<tr><td>過去分詞</td><td>had</td><td><button onclick="speak('had')">音声📢</button></td></tr>
+<tr><td>現在分詞</td><td>having</td><td><button onclick="speak('having')">音声📢</button></td></tr>
+</table>
 
 <h2>6. アウトプット練習（全文型）</h2>
 
 <table>
-<tr><th>文型</th><th>例文</th><th>日本語訳</th><th>音声</th></tr>
+<tr>
+<th>文型</th>
+<th>例文</th>
+<th>日本語訳</th>
+<th>音声</th>
+</tr>
 
-<tr id="out_SV"><td>SV</td><td></td><td class="jp"></td><td></td></tr>
-<tr id="out_SVO"><td>SVO</td><td></td><td class="jp"></td><td></td></tr>
-<tr id="out_SVOO"><td>SVOO</td><td></td><td class="jp"></td><td></td></tr>
-<tr id="out_SVOC"><td>SVOC</td><td></td><td class="jp"></td><td></td></tr>
+<tr>
+<td>SV</td>
+<td>I have.
+You have.
+They have.</td>
+<td class="jp">私は持っている
+あなたは持っている
+彼らは持っている</td>
+<td><button onclick="speak('I have')">音声📢</button>
+<button onclick="speak('You have')">音声📢</button>
+<button onclick="speak('They have')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVO</td>
+<td>I have a car.
+She has a dog.
+We have many books.</td>
+<td class="jp">私は車を持っている
+彼女は犬を持っている
+私たちは多くの本を持っている</td>
+<td><button onclick="speak('I have a car')">音声📢</button>
+<button onclick="speak('She has a dog')">音声📢</button>
+<button onclick="speak('We have many books')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVOO</td>
+<td>×（この文型は取らない）</td>
+<td class="jp">—</td>
+<td>—</td>
+</tr>
+
+<tr>
+<td>SVOC</td>
+<td>I have him clean the room.
+She has the children do their homework.
+They have the employees work overtime.</td>
+<td class="jp">私は彼に部屋を掃除させる
+彼女は子供たちに宿題をさせる
+彼らは従業員に残業させる</td>
+<td><button onclick="speak('I have him clean the room')">音声📢</button>
+<button onclick="speak('She has the children do their homework')">音声📢</button>
+<button onclick="speak('They have the employees work overtime')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>応用</td>
+<td>I have been working on this project for weeks.
+The company has a policy of providing health benefits to all employees.
+Have you ever had the opportunity to travel abroad?</td>
+<td class="jp">私はこのプロジェクトに数週間取り組んできた
+この会社は全従業員に健康保険を提供する方針だ
+海外旅行の機会に恵まれたことがありますか</td>
+<td><button onclick="speak('I have been working on this project for weeks')">音声📢</button>
+<button onclick="speak('The company has a policy of providing health benefits to all employees')">音声📢</button>
+<button onclick="speak('Have you ever had the opportunity to travel abroad')">音声📢</button></td>
+</tr>
 
 </table>
-
-<script>
-function speak(text){
-const msg=new SpeechSynthesisUtterance(text);
-msg.lang='en-US';
-speechSynthesis.speak(msg);
-}
-
-const verbs={
-
-have:{
-meaning:"持つ / 経験する",
-forms:["have","has","had","had","having"],
-SV:null,
-SVO:["I have a car.","私は車を持っている"],
-SVOO:null,
-SVOC:["I have him clean the room.","私は彼に掃除させる"]
-},
-
-make:{
-meaning:"作る",
-forms:["make","makes","made","made","making"],
-SV:null,
-SVO:["I make a cake.","私はケーキを作る"],
-SVOO:["I make you a cake.","あなたにケーキを作る"],
-SVOC:["I make him happy.","彼を幸せにする"]
-}
-
-};
-
-window.onload=function(){
-const sel=document.getElementById("verbSelect");
-
-Object.keys(verbs).forEach(v=>{
-let op=document.createElement("option");
-op.value=v;
-op.textContent=v;
-sel.appendChild(op);
-});
-
-loadVerb("have");
-
-sel.onchange=function(){
-loadVerb(this.value);
-};
-};
-
-function loadVerb(v){
-const d=verbs[v];
-
-// タイトル
-document.getElementById("title").innerText="動詞 "+v+" 学習テンプレート";
-
-// 動詞情報
-document.getElementById("word").innerText=v;
-document.getElementById("meaning").innerText=d.meaning;
-document.getElementById("voiceWord").onclick=()=>speak(v);
-
-// 法則
-["f1","f2","f3","f4","f5"].forEach((id,i)=>{
-document.getElementById(id).innerText=d.forms[i];
-});
-
-// 文型
-setRow("SV",d.SV);
-setRow("SVO",d.SVO);
-setRow("SVOO",d.SVOO);
-setRow("SVOC",d.SVOC);
-
-// アウトプット
-setRow("out_SV",d.SV,true);
-setRow("out_SVO",d.SVO,true);
-setRow("out_SVOO",d.SVOO,true);
-setRow("out_SVOC",d.SVOC,true);
-}
-
-function setRow(id,data,isOutput=false){
-const row=document.getElementById(id);
-
-if(!data){
-row.children[1].innerHTML="×（この文型は取らない）";
-row.children[2].innerHTML="—";
-row.children[3].innerHTML="—";
-return;
-}
-
-let en=data[0];
-let jp=data[1];
-
-if(isOutput){
-en=en+"<br>"+en+"<br>"+en;
-jp=jp+"<br>"+jp+"<br>"+jp;
-}
-
-row.children[1].innerHTML=en;
-row.children[2].innerHTML=jp;
-row.children[3].innerHTML='<button onclick="speak(\''+data[0]+'\')">音声📢</button>';
-}
-</script>
 
 </body>
 </html>
