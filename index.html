@@ -1,1 +1,155 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<title>Verb Learning Template - have</title>
+<style>
+body{font-family:Arial,Helvetica,sans-serif;margin:40px;line-height:1.8}
+h1{color:#2c3e50}
+table{border-collapse:collapse;width:100%;margin-bottom:25px}
+th,td{border:1px solid #ccc;padding:10px}
+th{background:#f2f2f2}
+button{padding:6px 10px;cursor:pointer}
+.jp{color:#555}
+</style>
 
+<script>
+function speak(text){
+    const msg = new SpeechSynthesisUtterance(text);
+    msg.lang = 'en-US';
+    speechSynthesis.speak(msg);
+}
+</script>
+
+</head>
+<body>
+
+<h1>動詞 have 学習テンプレート</h1>
+
+<h2>1. 動詞情報</h2>
+<p><strong>have</strong>：持つ</p>
+<p>音声 <button onclick="speak('have')">音声📢</button></p>
+
+<h2>2. 文型（5文型）</h2>
+
+<table>
+<tr>
+<th>文型</th>
+<th>例文</th>
+<th>日本語訳</th>
+<th>音声</th>
+</tr>
+
+<tr>
+<td>SV</td>
+<td>I have.</td>
+<td class="jp">私は持っている</td>
+<td><button onclick="speak('I have')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVO</td>
+<td>I have a car.</td>
+<td class="jp">私は車を持っている</td>
+<td><button onclick="speak('I have a car')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVOO</td>
+<td>×（この文型は取らない）</td>
+<td class="jp">—</td>
+<td>—</td>
+</tr>
+
+<tr>
+<td>SVOC</td>
+<td>I have him clean the room.</td>
+<td class="jp">私は彼に部屋を掃除させる</td>
+<td><button onclick="speak('I have him clean the room')">音声📢</button></td>
+</tr>
+
+</table>
+
+<h2>3. 法則</h2>
+<ul>
+<li>原形：have</li>
+<li>三人称単数現在：has</li>
+<li>過去形：had</li>
+<li>過去分詞：had</li>
+<li>現在分詞：having</li>
+</ul>
+
+<h2>4. 例外</h2>
+<ul>
+<li>"have got" の用法</li>
+<li>不規則変化形: "have" → "has"</li>
+</ul>
+
+<h2>5. 発音（全時制）</h2>
+
+<table>
+<tr><th>形</th><th>語形</th><th>音声</th></tr>
+<tr><td>原形</td><td>have</td><td><button onclick="speak('have')">音声📢</button></td></tr>
+<tr><td>三単現</td><td>has</td><td><button onclick="speak('has')">音声📢</button></td></tr>
+<tr><td>過去形</td><td>had</td><td><button onclick="speak('had')">音声📢</button></td></tr>
+<tr><td>過去分詞</td><td>had</td><td><button onclick="speak('had')">音声📢</button></td></tr>
+<tr><td>現在分詞</td><td>having</td><td><button onclick="speak('having')">音声📢</button></td></tr>
+</table>
+
+<h2>6. アウトプット練習（全文型）</h2>
+
+<table>
+<tr>
+<th>文型</th>
+<th>例文</th>
+<th>日本語訳</th>
+<th>音声</th>
+</tr>
+
+<tr>
+<td>SV</td>
+<td>I have.<br>You have.<br>They have.</td>
+<td class="jp">私は持っている<br>あなたは持っている<br>彼らは持っている</td>
+<td><button onclick="speak('I have')">音声📢</button>
+<button onclick="speak('You have')">音声📢</button>
+<button onclick="speak('They have')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVO</td>
+<td>I have a car.<br>She has a dog.<br>We have many books.</td>
+<td class="jp">私は車を持っている<br>彼女は犬を持っている<br>私たちは多くの本を持っている</td>
+<td><button onclick="speak('I have a car')">音声📢</button>
+<button onclick="speak('She has a dog')">音声📢</button>
+<button onclick="speak('We have many books')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>SVOO</td>
+<td>×（この文型は取らない）</td>
+<td class="jp">—</td>
+<td>—</td>
+</tr>
+
+<tr>
+<td>SVOC</td>
+<td>I have him clean the room.<br>She has the children do their homework.<br>They have the employees work overtime.</td>
+<td class="jp">私は彼に部屋を掃除させる<br>彼女は子供たちに宿題をさせる<br>彼らは従業員に残業させる</td>
+<td><button onclick="speak('I have him clean the room')">音声📢</button>
+<button onclick="speak('She has the children do their homework')">音声📢</button>
+<button onclick="speak('They have the employees work overtime')">音声📢</button></td>
+</tr>
+
+<tr>
+<td>応用</td>
+<td>I have been working on this project for weeks.<br>The company has a policy of providing health benefits to all employees.<br>Have you ever had the opportunity to travel abroad?</td>
+<td class="jp">私はこのプロジェクトに数週間取り組んできた<br>この会社は全従業員に健康保険を提供する方針だ<br>海外旅行の機会に恵まれたことがありますか</td>
+<td><button onclick="speak('I have been working on this project for weeks')">音声📢</button>
+<button onclick="speak('The company has a policy of providing health benefits to all employees')">音声📢</button>
+<button onclick="speak('Have you ever had the opportunity to travel abroad')">音声📢</button></td>
+</tr>
+
+</table>
+
+</body>
+</html>
