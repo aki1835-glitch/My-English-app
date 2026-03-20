@@ -1,0 +1,33 @@
+{
+  "name": "VerbLab - 英語学習",
+  "short_name": "VerbLab",
+  "description": "英語動詞・文法 学習アプリ",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f1117",
+  "theme_color": "#0f1117",
+  "orientation": "portrait-primary",
+  "lang": "ja",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "categories": ["education"],
+  "shortcuts": [
+    {
+      "name": "動詞学習",
+      "url": "./index.html",
+      "description": "動詞セクションを開く"
+    }
+  ]
+}
